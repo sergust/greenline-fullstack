@@ -12,6 +12,20 @@ exports.getPostById = async (req, res, next, id) => {
   }
 };
 
+//get all the post
+exports.getAllPost = async (req, res) => {
+  try {
+    const post = await Post.find({});
+    if(!post) {
+      throw new Error('Oops! Seems empty!')
+    }
+    return res.status(200).json({ data: post });
+  } catch (error) {
+    console.log(error);
+    return res.status(404).json({ error: error.message ? error.message : 'Bad request' });
+  }
+};
+
 //create new user post
 exports.createPost = async (req, res) => {
   try {
