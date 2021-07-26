@@ -1,0 +1,15 @@
+.authentication {
+  display: flex;
+  align-items: center;
+  .authentication--avatar {
+  };
+  .auth-name {
+    color: #2dcea3;
+    font-weight: 600;
+  }
+  .auth-logout {
+    color: #808080;
+    font-weight: 500;
+    text-decoration: none;
+  }
+}
