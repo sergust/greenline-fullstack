@@ -1,0 +1,28 @@
+.header{
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-left: 8%;
+  margin-right: 8%;
+}
+
+@media only screen and (min-width: 768px) {
+  .header + div {
+  margin-left: 8%;
+  margin-right: 8%
+}
+}
+
+
+.footer {
+  display: flex;
+  background-color: #F6F6F6;
+  color: #808080;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
+  p {
+    margin-bottom: 0px;
+  }
+}
