@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const { ObjectId } = mongoose.Schema.Types;
+
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -14,13 +16,26 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  recentOrders: [
+    {
+      type: ObjectId,
+      ref: 'Order' 
+    }
+  ],
   avatar: {
     type: String,
   },
-  date: {
-    type: Date,
-    default: Date.now(),
+  role: {
+    type: String,
+    enum: ['user', 'admin', 'superAdmin'],
+    default: 'user'
   },
-});
+  posts: [
+    {
+      type: ObjectId,
+      ref: 'Post'
+    }
+  ]
+}, {timestamps: true});
 
 module.exports = User = mongoose.model("User", UserSchema);

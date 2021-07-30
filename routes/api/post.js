@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const isSignedIn = require("../../middleware/auth");
+const { isSignedIn, isAdmin, isSuperAdmin } = require("../../middleware/auth");
 const {
   createPost,
   getPostById,
   updatePost,
   deletePost,
-  getAllPost
+  getAllPost,
+  toggleLikePost
 } = require("../../controllers/post");
 
 //Fire when postId parameter is matched
@@ -17,6 +18,11 @@ router.param("postId", getPostById);
 // @desc Test route
 // @access Private
 router.get("/", isSignedIn, getAllPost);
+
+// @route    PUT api/post/like/:id
+// @desc     Like a post
+// @access   Private
+router.put('/like/:postId', isSignedIn, toggleLikePost);
 
 // @route post api/post/create
 // @desc Test route
