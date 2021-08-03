@@ -22,11 +22,14 @@ exports.isSignedIn =  (req, res, next) => {
 };
 
 //isAdmin check
-exports.isAdmin = (req, res, next) => {
-  const targetUser = User.findById(req.user.id);
+exports.isAdmin = async (req, res, next) => {
+  const targetUser = await User.findById(req.user.id);
   const { role } = targetUser;
 
-  if (!(role === "admin")) {
+  //check if current user is admin or superAdmin
+  //user who is a superAdmin have all the privileges
+  //resources owned by an admin user
+  if (!(role === "admin" || role === "superAdmin")) {
     return res.status(401).json({ error: "User do not have admin privilege" });
   }
 
@@ -34,8 +37,8 @@ exports.isAdmin = (req, res, next) => {
 };
 
 // @desc Check if user has super admin privilege or not
-exports.isSuperAdmin = (req, res, next) => {
-  const targetUser = User.findById(req.user.id);
+exports.isSuperAdmin = async (req, res, next) => {
+  const targetUser = await User.findById(req.user.id);
   const { role } = targetUser;
 
   if (!(role === "superAdmin")) {
@@ -46,3 +49,12 @@ exports.isSuperAdmin = (req, res, next) => {
 
   next();
 };
+
+exports.isAuthorized = (currentUserId, verificationId) => {
+  if (currentUserId.toString() !== verificationId.toString()) {
+    return false;
+  } else {
+    return true;
+  }
+}
+

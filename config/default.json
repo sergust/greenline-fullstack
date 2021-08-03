@@ -1,4 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://testAdmin:test12345@cluster0.aho2u.mongodb.net/test",
+  "mongoURI": "mongodb://localhost:27017/testgreenline?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false",
   "jwtSecret": "jwtSecret"
 }

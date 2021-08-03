@@ -35,7 +35,16 @@ const UserSchema = new mongoose.Schema({
       type: ObjectId,
       ref: 'Post'
     }
-  ]
+  ],
+  phoneNumber: {
+    type: Number,
+    trim: true,
+    unique: true,
+  },
+  clients: [{
+    type: ObjectId,
+    ref: 'User'
+  }]
 }, {timestamps: true});
 
 module.exports = User = mongoose.model("User", UserSchema);

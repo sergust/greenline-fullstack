@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { isSignedIn, isAdmin, isSuperAdmin } = require("../../middleware/auth");
+const { isSignedIn, isAdmin } = require("../../middleware/auth");
 const {
   createPost,
   getPostById,
@@ -26,18 +26,18 @@ router.put('/like/:postId', isSignedIn, toggleLikePost);
 
 // @route post api/post/create
 // @desc Test route
-// @access Private
-router.post("/create", isSignedIn, createPost);
+// @access Admin Route
+router.post("/create", isSignedIn, isAdmin, createPost);
 
 // @route post api/post/update/:postId
 // @desc Test route
-// @access Private
-router.put("/update/:postId", isSignedIn, updatePost);
+// @access Admin Route
+router.put("/update/:postId", isSignedIn, isAdmin, updatePost);
 
 // @route post api/post/delete/:postId
 // @desc Test route
-// @access Private
+// @access Admin
 // Only author can delete post
-router.delete("/delete/:postId", isSignedIn, deletePost);
+router.delete("/delete/:postId", isSignedIn, isAdmin, deletePost);
 
 module.exports = router;

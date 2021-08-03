@@ -15,7 +15,15 @@ exports.getPostById = async (req, res, next, id) => {
 //get all the post
 exports.getAllPost = async (req, res) => {
   try {
-    const post = await Post.find({});
+    const post = await Post.find({})
+    .populate({
+      path: "comments",
+      select: "commentText commentBy -_id",
+      populate: {
+        path: "commentBy",
+        select: "name avatar -_id"
+      }
+    })
     if(!post) {
       throw new Error('Oops! Seems empty!')
     }
@@ -49,7 +57,7 @@ exports.updatePost = async (req, res) => {
     const post = req.post;
 
     if (JSON.stringify(post.author) !== JSON.stringify(req.user.id)) {
-        throw new Error("Not Sufficient Permission");
+      throw new Error("Not Sufficient Permission");
     }
 
     post.body = body;
