@@ -1,17 +1,19 @@
 import { Button, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useState } from "react";
+import { connect } from "react-redux";
+import { setAlert } from "../../actions/alert";
+import { register } from "../../actions/auth";
+import PropTypes from "prop-types";
 
-const SignUpWindow = () => {
+const SignUpWindow = ({ setAlert, register, isAuthenticated }) => {
   const [userCredentials, setUserCredentials] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-  const { firstName, lastName, email, password, confirmPassword } =
-    userCredentials;
+  const { name, email, password, confirmPassword } = userCredentials;
 
   const handleSetUserCredentials = (e) => {
     const { name, value } = e.target;
@@ -21,27 +23,30 @@ const SignUpWindow = () => {
     }));
   };
 
-  const signUp = () => {};
-  return (
-    <Form>
-      <Form.Group className="mb-3" controlId="first-name">
-        <Form.Label>First Name</Form.Label>
-        <Form.Control
-          type="firstName"
-          name="firstName"
-          placeholder="First name"
-          value={firstName}
-          onChange={handleSetUserCredentials}
-        />
-      </Form.Group>
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      setAlert("Passwords do not match", "danger");
+    } else {
+      register({ name, email, password });
+    }
+  };
 
-      <Form.Group className="mb-3" controlId="last-name">
-        <Form.Label>Last Name</Form.Label>
+  // Redirect after logged in
+  if (isAuthenticated) {
+    return <Redirect to="/" />;
+  }
+
+  return (
+    <Form onSubmit={onSubmit}>
+      <Form.Group className="mb-3" controlId="name">
+        <Form.Label>Name</Form.Label>
         <Form.Control
-          type="lastName"
-          name="lastName"
-          placeholder="Last name"
-          value={lastName}
+          type="input"
+          name="name"
+          placeholder="Name"
+          value={name}
+          required
           onChange={handleSetUserCredentials}
         />
       </Form.Group>
@@ -53,6 +58,7 @@ const SignUpWindow = () => {
           name="email"
           placeholder="Enter email"
           value={email}
+          required
           onChange={handleSetUserCredentials}
         />
         <Form.Text className="text-muted">
@@ -67,6 +73,7 @@ const SignUpWindow = () => {
           name="password"
           placeholder="Password"
           value={password}
+          required
           onChange={handleSetUserCredentials}
         />
       </Form.Group>
@@ -74,10 +81,11 @@ const SignUpWindow = () => {
       <Form.Group className="mb-3" controlId="confirm-password">
         <Form.Label>Confirm Password</Form.Label>
         <Form.Control
-          type="confirmPassword"
+          type="password"
           name="confirmPassword"
           placeholder="Confirm Password"
           value={confirmPassword}
+          required
           onChange={handleSetUserCredentials}
         />
       </Form.Group>
@@ -88,14 +96,22 @@ const SignUpWindow = () => {
         </Button>
       </Form.Group>
       <Form.Group>
-        <Link to="/signin">
-          <Button variant="link" onClick={signUp}>
-            Have an account? Log in!
-          </Button>
+        <Link to="/login">
+          <Button variant="link">Have an account? Log in!</Button>
         </Link>
       </Form.Group>
     </Form>
   );
 };
 
-export default SignUpWindow;
+SignUpWindow.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { setAlert, register })(SignUpWindow);

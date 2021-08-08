@@ -11,13 +11,6 @@ const HomePage = () => {
   return (
     <div>
       <Container fluid>
-        <Row className="header">
-          <Logo />
-          <Authentication />
-        </Row>
-        <Row>
-          <Menu />
-        </Row>
         <Row>
           <Feed />
         </Row>
