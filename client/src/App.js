@@ -1,4 +1,4 @@
-import "./App.css";
+import "./styles/styles.scss";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage.component";
 import Feed from "./pages/Feed/Feed.component";

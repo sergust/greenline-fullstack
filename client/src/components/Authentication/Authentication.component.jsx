@@ -13,7 +13,7 @@ const Authentication = ({
   const authContent = (
     <div>
       {user && <div className="auth-name">Hi, {user.name}!</div>}
-      <a className="auth-logout" onClick={logout}>
+      <a className="auth-logout cursor-pointer" onClick={logout}>
         Log out
       </a>
     </div>
