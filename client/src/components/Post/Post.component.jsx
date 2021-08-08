@@ -60,7 +60,7 @@ const Post = ({ user, date, text, media }) => (
       </div>
       <div>
         <Row className="mx-3">
-          <p style={{ color: "#2dcea3"}}>View all comments</p>
+          <p style={{ color: "#2dcea3" }}>View all comments</p>
         </Row>
       </div>
       <div>
@@ -76,11 +76,10 @@ const Post = ({ user, date, text, media }) => (
       <div style={{ display: "flex", alignItems: "center" }} className="my-2">
         <InitialsRound initials="M" iWidth="44px" iHeight="44px" />
         <Form.Control
-          as="Input"
-          place
+          type="input"
           style={{ width: "90%", height: "48px" }}
           className="mx-3"
-          placeholder="write a comment..."
+          placeholder="Leave a comment..."
         />
       </div>
     </Col>

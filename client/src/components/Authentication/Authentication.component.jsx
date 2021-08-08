@@ -13,9 +13,9 @@ const Authentication = ({
   const authContent = (
     <div>
       {user && <div className="auth-name">Hi, {user.name}!</div>}
-      <Link className="auth-logout" onClick={logout}>
+      <a className="auth-logout" onClick={logout}>
         Log out
-      </Link>
+      </a>
     </div>
   );
 
