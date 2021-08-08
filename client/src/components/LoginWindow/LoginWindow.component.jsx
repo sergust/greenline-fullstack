@@ -17,9 +17,10 @@ const LoginWindow = () => {
     }));
   };
 
-  const login = () => {};
+  const onSubmit = async () => {};
+
   return (
-    <Form>
+    <Form onSubmit={onSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control
@@ -27,6 +28,7 @@ const LoginWindow = () => {
           name="email"
           placeholder="Enter email"
           value={email}
+          required
           onChange={handleSetUserCredentials}
         />
         <Form.Text className="text-muted">
@@ -40,6 +42,7 @@ const LoginWindow = () => {
           type="password"
           name="password"
           placeholder="Password"
+          required
           value={password}
           onChange={handleSetUserCredentials}
         />
@@ -48,7 +51,7 @@ const LoginWindow = () => {
         <Form.Check type="checkbox" label="Check me out" />
       </Form.Group>
       <Form.Group>
-        <Button variant="primary" onClick={login}>
+        <Button variant="primary" type="submit">
           Log in
         </Button>
       </Form.Group>
