@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const auth = require("../../middleware/auth");
+const { isSignedIn } = require("../../middleware/auth");
 const User = require("../../models/User");
 const jwt = require("jsonwebtoken");
 const config = require("config");
@@ -10,7 +10,7 @@ const { check, validationResult } = require("express-validator");
 // @route   GET api/auth
 // @desc    Test route
 // @access  Public
-router.get("/", auth, async (req, res) => {
+router.get("/", isSignedIn, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
     res.json(user);
@@ -65,7 +65,7 @@ router.post(
         { expiresIn: 3600 },
         (err, token) => {
           if (err) throw err;
-          res.json({ token });
+          res.json({ token, userId: user.id });
         }
       );
     } catch (e) {

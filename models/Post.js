@@ -19,19 +19,18 @@ const postSchema = new Schema(
     postPicture: {
       type: String,
     },
-    comments: [
-      {
-        type: ObjectId,
-        ref: User,
-      },
-    ],
     likes: [
       {
         type: ObjectId,
-        ref: User,
-        unique: true
+        ref: 'User',
       },
     ],
+    comments: [
+      {
+        type: ObjectId,
+        ref: 'Comment',
+      },
+    ]
   },
   { timestamps: true }
 );

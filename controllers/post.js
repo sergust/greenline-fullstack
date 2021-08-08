@@ -15,7 +15,15 @@ exports.getPostById = async (req, res, next, id) => {
 //get all the post
 exports.getAllPost = async (req, res) => {
   try {
-    const post = await Post.find({});
+    const post = await Post.find({})
+    .populate({
+      path: "comments",
+      select: "commentText commentBy -_id",
+      populate: {
+        path: "commentBy",
+        select: "name avatar -_id"
+      }
+    })
     if(!post) {
       throw new Error('Oops! Seems empty!')
     }
@@ -49,7 +57,7 @@ exports.updatePost = async (req, res) => {
     const post = req.post;
 
     if (JSON.stringify(post.author) !== JSON.stringify(req.user.id)) {
-        throw new Error("Not Sufficient Permission");
+      throw new Error("Not Sufficient Permission");
     }
 
     post.body = body;
@@ -63,6 +71,31 @@ exports.updatePost = async (req, res) => {
     return;
   }
 };
+
+exports.toggleLikePost = async (req, res) => {
+  try {
+    const post = req.post;
+    const isLiked = post.likes.findIndex((likedUser) => likedUser.toString() === req.user.id);
+
+    // Check if the post has already been liked
+    if (isLiked !== -1) {
+      const updatedLikes = post.likes.filter(likedUser => likedUser.toString() !== req.user.id);
+      post.likes = updatedLikes;
+
+      await post.save();
+      return res.json({ success: 'post unliked success'});
+    }
+
+    post.likes.unshift(req.user.id);
+
+    await post.save();
+
+    return res.json({ success: 'post liked success'});
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+}
 
 //delete an existing post
 exports.deletePost = async (req, res) => {
