@@ -1,12 +1,12 @@
 import { Button, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useState } from "react";
 import { connect } from "react-redux";
 import { setAlert } from "../../actions/alert";
 import { register } from "../../actions/auth";
 import PropTypes from "prop-types";
 
-const SignUpWindow = ({ setAlert, register }) => {
+const SignUpWindow = ({ setAlert, register, isAuthenticated }) => {
   const [userCredentials, setUserCredentials] = useState({
     name: "",
     email: "",
@@ -31,6 +31,11 @@ const SignUpWindow = ({ setAlert, register }) => {
       register({ name, email, password });
     }
   };
+
+  // Redirect after logged in
+  if (isAuthenticated) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <Form onSubmit={onSubmit}>
@@ -102,6 +107,11 @@ const SignUpWindow = ({ setAlert, register }) => {
 SignUpWindow.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
 
-export default connect(null, { setAlert, register })(SignUpWindow);
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { setAlert, register })(SignUpWindow);

@@ -1,8 +1,11 @@
 import { Button, Form } from "react-bootstrap";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { login } from "../../actions/auth";
 
-const LoginWindow = () => {
+const LoginWindow = ({ login, isAuthenticated }) => {
   const [userCredentials, setUserCredentials] = useState({
     email: "",
     password: "",
@@ -17,7 +20,15 @@ const LoginWindow = () => {
     }));
   };
 
-  const onSubmit = async () => {};
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    login(email, password);
+  };
+
+  // Redirect after logged in
+  if (isAuthenticated) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <Form onSubmit={onSubmit}>
@@ -62,4 +73,13 @@ const LoginWindow = () => {
   );
 };
 
-export default LoginWindow;
+LoginWindow.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(LoginWindow);
