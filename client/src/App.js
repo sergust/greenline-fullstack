@@ -7,13 +7,23 @@ import SignIn from "./pages/SignIn/SignIn.component";
 import SignUp from "./pages/SignUp/SignUp.component";
 import Navbar from "./components/Navbar/Navbar.component";
 import Alert from "./components/Alert/Alert.component";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 
 // For Redux
 import { Provider } from "react-redux";
 import store from "./store";
+import setAuthToken from "./utils/setAuthToken";
+import { loadUser } from "./actions/auth";
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 function App() {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+
   return (
     <Provider store={store}>
       <Fragment>

@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { connect } from "react-redux";
 import { setAlert } from "../../actions/alert";
+import { register } from "../../actions/auth";
 import PropTypes from "prop-types";
 
-const SignUpWindow = ({ setAlert }) => {
+const SignUpWindow = ({ setAlert, register }) => {
   const [userCredentials, setUserCredentials] = useState({
     name: "",
     email: "",
@@ -27,7 +28,7 @@ const SignUpWindow = ({ setAlert }) => {
     if (password !== confirmPassword) {
       setAlert("Passwords do not match", "danger");
     } else {
-      console.log("Succcess!");
+      register({ name, email, password });
     }
   };
 
@@ -100,6 +101,7 @@ const SignUpWindow = ({ setAlert }) => {
 
 SignUpWindow.propTypes = {
   setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setAlert })(SignUpWindow);
+export default connect(null, { setAlert, register })(SignUpWindow);
