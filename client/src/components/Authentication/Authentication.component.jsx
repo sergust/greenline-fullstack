@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
 import "./Authentication.styles.scss";
+import { Button } from "react-bootstrap";
 
 const Authentication = ({
   auth: { isAuthenticated, loading, user },
@@ -13,9 +14,13 @@ const Authentication = ({
   const authContent = (
     <div>
       {user && <div className="auth-name">Hi, {user.name}!</div>}
-      <a className="auth-logout cursor-pointer" onClick={logout}>
+      <Button
+        className="auth-logout cursor-pointer"
+        variant="link"
+        onClick={logout}
+      >
         Log out
-      </a>
+      </Button>
     </div>
   );
 

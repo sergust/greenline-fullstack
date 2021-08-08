@@ -35,7 +35,11 @@ const Post = ({ user, date, text, media }) => (
       </div>
       {media && (
         <div>
-          <img src={media} style={{ width: "100%", maxHeight: "300px" }} />
+          <img
+            src={media}
+            style={{ width: "100%", maxHeight: "300px" }}
+            alt="Post"
+          />
         </div>
       )}
       <div
