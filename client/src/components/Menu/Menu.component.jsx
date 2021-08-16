@@ -13,6 +13,10 @@ const links = [
     link: "/information-directory",
   },
   {
+    text: "Videos",
+    link: "/videos"
+  },
+  {
     text: "User",
     link: "/user",
   },

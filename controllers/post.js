@@ -14,20 +14,33 @@ exports.getPostById = async (req, res, next, id) => {
 
 //get all the post
 exports.getAllPost = async (req, res) => {
+  const {skip, limit} = req.query;
   try {
     const post = await Post.find({})
     .populate({
       path: "comments",
-      select: "commentText commentBy -_id",
+      select: "commentText commentBy",
       populate: {
         path: "commentBy",
-        select: "name avatar -_id"
+        select: "name avatar"
+      },
+      options: {
+        limit: 3,
+        sort: {_id: -1},
+        skip: 0
       }
     })
+    .populate({
+      path: "author",
+      select: "name avatar"
+    })
+    .sort({_id: -1})
+    .skip(parseInt(skip))
+    .limit(parseInt(limit))
     if(!post) {
       throw new Error('Oops! Seems empty!')
     }
-    return res.status(200).json({ data: post });
+    return res.status(200).json({ data: post, size: post.length });
   } catch (error) {
     console.log(error);
     return res.status(404).json({ error: error.message ? error.message : 'Bad request' });

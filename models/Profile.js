@@ -1,53 +1,55 @@
 const mongoose = require("mongoose");
 
-const ProfileSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
-  },
-  company: {
-    type: String,
-  },
-  website: {
-    type: String,
-  },
-  location: {
-    type: String,
-  },
-  status: {
-    type: String,
-  },
-  industries: {
-    type: [String],
-    required: true,
-  },
-  bio: {
-    type: String,
-  },
-  social: {
-    youtube: {
-      type: String,
-    },
-    twitter: {
-      type: String,
-    },
-    facebook: {
-      type: String,
-    },
-    linkedin: {
-      type: String,
-    },
-    instagram: {
-      type: String,
-    },
-    tiktok: {
-      type: String,
-    },
-  },
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-});
+const Schema = mongoose.Schema;
+const { ObjectId } = Schema.Types;
 
-module.exports = Profile = mongoose.model("profile", ProfileSchema);
+const ProfileSchema = new Schema(
+  {
+    user: {
+      type: ObjectId,
+      ref: "User",
+    },
+    company: {
+      type: String,
+    },
+    website: {
+      type: String,
+    },
+    location: {
+      type: String,
+    },
+    bio: {
+      type: String,
+    },
+    following: [{ type: ObjectId, ref: "User" }],
+    followers: [{ type: ObjectId, ref: "User" }],
+    phoneNumber: {
+      type: Number,
+      trim: true,
+      unique: true,
+    },
+    social: {
+      youtube: {
+        type: String,
+      },
+      twitter: {
+        type: String,
+      },
+      facebook: {
+        type: String,
+      },
+      linkedin: {
+        type: String,
+      },
+      instagram: {
+        type: String,
+      },
+      tiktok: {
+        type: String,
+      },
+    },
+  },
+  { timestamps: true }
+);
+
+module.exports = Profile = mongoose.model("Profile", ProfileSchema);

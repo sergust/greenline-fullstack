@@ -1,85 +1,73 @@
 import { Button, Form } from "react-bootstrap";
 import { useState } from "react";
-import { Link, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { login } from "../../actions/auth";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import "./LoginWindow.styles.scss";
+import {login} from "../../redux/actions/authAction";
 
-const LoginWindow = ({ login, isAuthenticated }) => {
-  const [userCredentials, setUserCredentials] = useState({
-    email: "",
-    password: "",
-  });
-  const { email, password } = userCredentials;
+const LoginWindow = () => {
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isToggle, setIsToggle] = useState(false);
 
-  const handleSetUserCredentials = (e) => {
-    const { name, value } = e.target;
-    setUserCredentials((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const onSubmit = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    login(email, password);
+    dispatch(login(email, password));
   };
 
-  // Redirect after logged in
-  if (isAuthenticated) {
-    return <Redirect to="/" />;
-  }
+  const handlePasswordToggle = () => {
+    return setIsToggle(!isToggle);
+  };
 
   return (
-    <Form onSubmit={onSubmit}>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
+    <Form>
+      <Form.Group>
+        <Form.Label htmlFor="user-email" className="my-1 ms-2" style = {{display: 'flex', margin: '4px 0px 4px 8px', fontFamily: 'sans-serif'}}>
+          Email
+        </Form.Label>
         <Form.Control
           type="email"
-          name="email"
-          placeholder="Enter email"
+          id="user-email"
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
           value={email}
-          required
-          onChange={handleSetUserCredentials}
         />
         <Form.Text className="text-muted">
           We'll never share your email with anyone else.
         </Form.Text>
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-          value={password}
-          onChange={handleSetUserCredentials}
-        />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
-      </Form.Group>
       <Form.Group>
-        <Button variant="primary" type="submit">
-          Log in
-        </Button>
+        <Form.Label htmlFor="user-password" className="my-1 ms-2" style = {{display: 'flex', margin: '4px 0px 4px 8px', fontFamily: 'sans-serif'}}>
+          Password
+        </Form.Label>
+        <Form.Control
+          type={isToggle ? "text" : "password"}
+          id="user-password"
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+        />
+        <span class="password-toggler">
+          {isToggle ? (
+            <FaEyeSlash size="20" onClick={handlePasswordToggle} />
+          ) : (
+            <FaEye size="20" onClick={handlePasswordToggle} />
+          )}
+        </span>
+        <span className="forget-password-text my-1">
+          Forgot your password?
+        </span>
       </Form.Group>
+
+      <Button onClick={handleLogin}>Sign In</Button>
       <Link to="/signup">
-        <Button variant="link">Don't have an account? Sign up!</Button>
+        <p style = {{color: '#05a684', marginTop: 10, textAlign: 'center'}}>Don't have an account? Sign up!</p>
       </Link>
     </Form>
   );
 };
 
-LoginWindow.propTypes = {
-  login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
-};
-
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
-
-export default connect(mapStateToProps, { login })(LoginWindow);
+export default LoginWindow;

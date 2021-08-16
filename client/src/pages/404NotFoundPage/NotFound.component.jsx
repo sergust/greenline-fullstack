@@ -1,21 +1,13 @@
 import React from "react";
 import { Container, Row } from "react-bootstrap";
-import Logo from "../../components/Logo/Logo.component";
-import Authentication from "../../components/Authentication/Authentication.component";
-import Menu from "../../components/Menu/Menu.component";
+import Header from "../../components/Header/Header.component";
 import NotFound from "../../components/NotFound/NotFound.component";
 
-const HomePage = () => {
+const NotFoundPage = () => {
   return (
     <div>
-      <Container>
-        <Row className="header">
-          <Logo />
-          <Authentication />
-        </Row>
-        <Row>
-          <Menu />
-        </Row>
+      <Container fluid>
+        <Header />
         <Row>
           <NotFound />
         </Row>
@@ -24,4 +16,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default NotFoundPage;

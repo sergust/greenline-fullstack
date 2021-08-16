@@ -1,0 +1,60 @@
+@import "node_modules/react-modal-video/scss/modal-video.scss";
+@import "src/styles/variables.scss";
+
+.input-area:focus {
+  outline: none !important;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.modal-body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.modal-body::-webkit-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.modal-body {
+  padding: 25px;
+}
+
+.img{
+  backface-visibility: hidden;
+  transition: .5s ease;
+  opacity: 1;
+  display: block;
+}
+
+.video-icon{
+  position: absolute;
+  background-color: #fff;
+  border-bottom-right-radius: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.overlay{
+  transition: .5s ease;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.card-container:hover .img{
+  opacity: 0.7;
+}
+
+.card-container:hover .overlay{
+  opacity: 1;
+}
+
+.card-container:hover .play-btn{
+  opacity: 1;
+}
+
+.play-btn{
+  background-color: $primary;
+}

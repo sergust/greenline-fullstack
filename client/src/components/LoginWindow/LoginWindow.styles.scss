@@ -1,0 +1,42 @@
+@import "src/styles/variables.scss";
+#user-email {
+	border: 1px solid $primary;
+	border-radius: 50px;
+	width: 475px;
+	height: 50px;
+	margin-bottom: 20px;
+	padding-left: 20px;
+}
+#user-password {
+	border: 1px solid $primary;
+	border-radius: 50px;
+	width: 475px;
+	height: 50px;
+	margin-bottom: 20px;
+	padding-left: 20px;
+}
+.password-toggler {
+	position: absolute;
+	top: 347px;
+	right: 90px;
+	color: $primary;
+}
+.forget-password-text {
+	color: $primary;
+	cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+}
+#login-form {
+	button {
+		background-color: $primary;
+		color: #FFFFFF;
+		font-weight: 700;
+		letter-spacing: 1px;
+		width: 475px;
+		height: 50px;
+		border-radius: 50px;
+		margin-top: 20px;
+        border-color: $primary;
+	}
+}

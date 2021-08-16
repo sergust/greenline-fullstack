@@ -9,6 +9,21 @@ const User = require("../../models/User");
 const { isAdmin, isSignedIn, } = require("../../middleware/auth");
 const { addClient, removeClient, getMyClients } = require("../../controllers/users");
 
+
+// @route   GET api/users/
+// @desc    Test route
+// @access  Public
+router.get("/", isSignedIn, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    res.json(user);
+  } catch (e) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+
 // @route   POST api/users
 // @desc    Register user
 // @access  Public
@@ -71,7 +86,7 @@ router.post(
         { expiresIn: 3600 },
         (err, token) => {
           if (err) throw err;
-          res.json({ token });
+          res.json({ token, userId: user.id, role: user.role });
         }
       );
     } catch (e) {

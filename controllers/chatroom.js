@@ -7,7 +7,7 @@ exports.createChatRoom = async (req, res) => {
     participants: [req.body.senderId, req.body.receiverId],
   });
   try {
-    if (!isAuthorized(req.user.id, req.body.senderId)) {
+    if (!isAuthorized(req.user.id, req.body?.senderId)) {
       throw new Error("Message cannot be saved");
     }
 
@@ -34,12 +34,9 @@ exports.getUserChatRooms = async (req, res) => {
       throw new Error("Unauthorized User");
     }
 
-    const conversation = await ChatRoom.find(
-      {
-        participants: { $in: [req.params.userId] },
-      },
-      "participants"
-    );
+    const conversation = await ChatRoom.find({
+      participants: { $in: [req.params.userId] },
+    }, "participants");
     res.status(200).json(conversation);
   } catch (err) {
     res.status(500).json({ error: err.message ? err.message : err });
