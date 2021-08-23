@@ -23,19 +23,21 @@ const postReducer = (state = initialState, action) => {
       return {
         ...state,
         posts: [...state.posts, ...action.payload.data],
-        size: action.payload.size
+        size: action.payload.size,
       };
 
     case POST_TYPES.UPDATE_POST:
       return {
         ...state,
-        posts: state.posts.map(item => (item._id === action.payload._id ? action.payload : item)),
+        posts: state.posts.map((item) =>
+          item._id === action.payload._id ? action.payload : item
+        ),
       };
 
     case POST_TYPES.DELETE_POST:
       return {
         ...state,
-        posts: state.posts.filter(post => post._id !== action.payload)
+        posts: state.posts.filter((post) => post._id !== action.payload),
       };
 
     default:

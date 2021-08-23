@@ -1,6 +1,7 @@
 import axios from "axios";
 import { REQUEST, FAIL } from "./action.types";
 import { API } from "../../backend";
+import { PROFILE_TYPES } from "./profileAction";
 
 export const POST_TYPES = {
   CREATE_POST: "CREATE_POST",
@@ -35,6 +36,10 @@ export const createPost =
 
       dispatch({
         type: POST_TYPES.CREATE_POST,
+        payload: { ...data, author },
+      });
+      dispatch({
+        type: PROFILE_TYPES.CREATE_PROFILE_POST,
         payload: { ...data, author },
       });
 
@@ -104,11 +109,14 @@ export const updatePost =
       dispatch({ type: REQUEST, payload: { loading: true } });
 
       //get authentication token from the user
-      const { auth } = getState();
+      const { auth, homePosts } = getState();
       const {
         userInfo: { token },
       } = auth;
       const URL = `${API}/post/update/${postId}`;
+
+      const [targetPost] = homePosts.posts.filter(p => p._id === postId);
+      const updatedPost = {...targetPost, body, postPicture};
 
       //setting header
       var config = {
@@ -117,9 +125,10 @@ export const updatePost =
         },
       };
 
-      const { data } = await axios.put(URL, { body, postPicture }, config);
+      await axios.put(URL, { body, postPicture }, config);
 
-      dispatch({ type: POST_TYPES.UPDATE_POST, payload: data });
+      dispatch({ type: POST_TYPES.UPDATE_POST, payload: updatedPost });
+      dispatch({ type: PROFILE_TYPES.UPDATE_POST, payload: updatedPost});
     } catch (err) {
       dispatch({
         type: FAIL,

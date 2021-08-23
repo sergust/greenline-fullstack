@@ -7,7 +7,7 @@ const config = require("config");
 const { check, validationResult } = require("express-validator");
 const User = require("../../models/User");
 const { isAdmin, isSignedIn, } = require("../../middleware/auth");
-const { addClient, removeClient, getMyClients } = require("../../controllers/users");
+const { addClient, removeClient, getMyClients, searchUser } = require("../../controllers/users");
 
 
 // @route   GET api/users/
@@ -22,6 +22,11 @@ router.get("/", isSignedIn, async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
+//@route GET api/users/search 
+//@desc Search user by email
+//@access Private
+router.get('/search', isSignedIn, searchUser);
 
 
 // @route   POST api/users

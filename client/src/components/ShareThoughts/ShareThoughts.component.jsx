@@ -29,7 +29,7 @@ function ShareThoughts() {
   return (
     <Row className="post-row">
       <Col className="post">
-        <div style={{ width: "100%", display: "flex", marginBottom: "10px" }}>
+        <div style={{display: "flex", marginBottom: "10px" }}>
           <div style={{ display: "flex" }}>
             <InitialsRound
               initials={currentUserDetail?.name[0]}
@@ -53,7 +53,7 @@ function ShareThoughts() {
           <textarea
             value={thoughts}
             rows={5}
-            cols={105}
+            cols={500}
             name="message"
             placeholder="Share Your Thoughts.."
             className="text-input"

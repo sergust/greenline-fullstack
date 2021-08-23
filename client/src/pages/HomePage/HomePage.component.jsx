@@ -16,7 +16,7 @@ const HomePage = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    
       <Container fluid>
         <Header />
         <Row>
@@ -26,7 +26,7 @@ const HomePage = () => {
           <Footer />
         </Row>
       </Container>
-    </div>
+    
   );
 };
 

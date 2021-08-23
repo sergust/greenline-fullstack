@@ -1,12 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import "./post.styles.scss";
 import {
   Col,
-  InputGroup,
   Row,
-  Button,
-  FormControl,
-  Form,
 } from "react-bootstrap";
 import PostHeader from "./PostHeader.component";
 import PostBody from "./PostBody.component";
@@ -24,10 +20,16 @@ const Post = ({
 }) => {
   return (
     <Row className="post-row">
-      <Col lg="15" className="post">
-        <PostHeader author={author} createdAt={createdAt} postId={_id}/>
+      <Col className="post">
+        <PostHeader
+          author={author}
+          createdAt={createdAt}
+          postId={_id}
+          postText={body}
+          postPicture={postPicture}
+        />
         <PostBody body={body} postPicture={postPicture} />
-        <PostFooter likes={likes} comments={comments} postId={_id}/>
+        <PostFooter likes={likes} comments={comments} postId={_id} />
         <PostComment comments={comments} postId={_id} />
       </Col>
     </Row>

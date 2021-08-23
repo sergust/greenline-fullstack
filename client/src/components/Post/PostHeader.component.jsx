@@ -1,14 +1,13 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import moment from "moment";
 import InitialsRound from "../InitialsRound/InitialsRound.component";
 import { useSelector, useDispatch } from "react-redux";
 import { MdMoreHoriz, MdDelete, MdEdit } from "react-icons/md";
 import { Dropdown } from "react-bootstrap";
-import { deletePost} from "../../redux/actions/postAction"
-import CreatePostModal from '../Modal/CreatePostModal.component';
+import { deletePost } from "../../redux/actions/postAction";
+import UpdatePostModal from "../Modal/UpdatePostModal.component";
 
-
-const PostHeader = ({ author, createdAt, postId }) => {
+const PostHeader = ({ author, createdAt, postId, postText, postPicture }) => {
   const {
     userInfo: { userId },
   } = useSelector((state) => state.auth);
@@ -17,11 +16,17 @@ const PostHeader = ({ author, createdAt, postId }) => {
   const handleDeletePost = () => {
     dispatch(deletePost(postId));
   };
-  const [visible, setVisible] = useState(false)
-
+  const [visible, setVisible] = useState(false);
 
   return (
-    <div style={{ width: "100%", display: "flex", marginBottom: "10px", justifyContent: "space-between" }}>
+    <div
+      style={{
+        width: "100%",
+        display: "flex",
+        marginBottom: "10px",
+        justifyContent: "space-between",
+      }}
+    >
       <div style={{ display: "flex" }}>
         <InitialsRound
           initials={author.name[0].toUpperCase()}
@@ -52,12 +57,24 @@ const PostHeader = ({ author, createdAt, postId }) => {
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
-            <Dropdown.Item onClick = {() => setVisible(true)}>
-              <span className="text-primary"><MdEdit /></span> Edit Post
+            <Dropdown.Item onClick={() => setVisible(true)}>
+              <span className="text-primary">
+                <MdEdit />
+              </span>{" "}
+              Edit Post
             </Dropdown.Item>
-            <CreatePostModal show = {visible} hide = {() => setVisible(false)} />
+            <UpdatePostModal
+              show={visible}
+              hide={() => setVisible(false)}
+              postText={postText}
+              postPicture={postPicture}
+              postId={postId}
+            />
             <Dropdown.Item onClick={handleDeletePost}>
-              <span className="text-danger"><MdDelete /></span> Delete Post
+              <span className="text-danger">
+                <MdDelete />
+              </span>{" "}
+              Delete Post
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>

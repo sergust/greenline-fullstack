@@ -4,6 +4,7 @@ import { FaFacebookSquare, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { updateProfileUser } from "../../redux/actions/profileAction";
 import "./Modal.styles.scss";
+import {toast} from "react-toastify";
 
 function EditModal(props) {
   const { users } = useSelector((state) => state.profile);
@@ -13,18 +14,28 @@ function EditModal(props) {
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
-    setFormData({
-      ...userProfile,
-      createdAt: currentUserDetail?.createdAt,
-      user: {
-        name: currentUserDetail?.name,
-        _id: currentUserDetail?._id,
-        avatar: currentUserDetail?.avatar,
-      },
-    });
-  }, [userProfile, users.length]);
+    if(currentUserDetail?._id.length !== 0) {
+      setFormData({
+        ...userProfile,
+        createdAt: currentUserDetail?.createdAt,
+        user: {
+          name: currentUserDetail?.name,
+          _id: currentUserDetail?._id,
+          avatar: currentUserDetail?.avatar,
+        },
+      });
+    }
+  }, [userProfile, users.length, currentUserDetail?._id.length]);
 
   const handleSaveChange = () => {
+    const {phoneNumber, social} = formData;
+    if(!phoneNumber) {
+      return toast('Phone number cannot be empty', {type: 'error'});
+    }
+
+    if(!social) {
+      return toast('Social Link cannot be empty', {type: 'error'})
+    }
     dispatch(updateProfileUser(formData));
     props.hide();
   };
@@ -90,7 +101,7 @@ function EditModal(props) {
               <Form.Label>Phone Number</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="10-digit number"
+                placeholder="10-digit number (unique)"
                 style={{ borderBottom: "1px solid #ececec" }}
                 className="input-area"
                 value={formData.phoneNumber}
@@ -109,6 +120,7 @@ function EditModal(props) {
                 as="textarea"
                 rows={3}
                 style={{ resize: "none" }}
+                placeholder="Short Bio"
                 value={formData.bio}
                 onChange={(e) =>
                   setFormData({ ...formData, bio: e.target.value })
@@ -125,7 +137,7 @@ function EditModal(props) {
               </Form.Label>
               <Form.Control
                 plaintext
-                placeholder="Facebook link"
+                placeholder="Facebook link*"
                 className="input-area"
                 style={{ borderBottom: "1px solid #ececec" }}
                 className="input-area"

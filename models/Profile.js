@@ -29,9 +29,6 @@ const ProfileSchema = new Schema(
       unique: true,
     },
     social: {
-      youtube: {
-        type: String,
-      },
       twitter: {
         type: String,
       },
@@ -40,13 +37,7 @@ const ProfileSchema = new Schema(
       },
       linkedin: {
         type: String,
-      },
-      instagram: {
-        type: String,
-      },
-      tiktok: {
-        type: String,
-      },
+      }
     },
   },
   { timestamps: true }

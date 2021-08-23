@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "bootstrap": "4.6.0",
+    "emoji-mart": "^3.0.1",
     "moment": "^2.29.1",
     "node-sass": "^5.0.0",
     "prettier": "^2.3.2",

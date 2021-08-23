@@ -97,7 +97,7 @@ export const loadUser = () => {
     } catch (err) {
       dispatch({
         type: FAIL,
-        payload: err.response.data?.msg ? err.response.data?.msg : err.message
+        payload: err.response?.data.msg ? err.response?.data.msg : err.message
       });
     }
 }};

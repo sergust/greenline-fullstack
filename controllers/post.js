@@ -23,11 +23,6 @@ exports.getAllPost = async (req, res) => {
       populate: {
         path: "commentBy",
         select: "name avatar"
-      },
-      options: {
-        limit: 3,
-        sort: {_id: -1},
-        skip: 0
       }
     })
     .populate({
@@ -77,7 +72,7 @@ exports.updatePost = async (req, res) => {
     post.postPicture = postPicture;
 
     await post.save();
-    return res.status(200).json({ updatedPost: post });
+    return res.status(200).json(post);
   } catch (error) {
     console.log(error);
     res.status(400).json({ error: error.message ? error.message : 'Cannot update post.'});

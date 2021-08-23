@@ -8,3 +8,6 @@ export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
 //load user
 export const USER_LOADED = 'USER_LOADED';
+
+//socket
+export const SOCKET = 'SOCKET';

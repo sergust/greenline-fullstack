@@ -4,17 +4,22 @@ const Schema = mongoose.Schema;
 const { ObjectId } = Schema.Types;
 
 const ChatMessageSchema = new Schema({
-    chatRoomId: {
+    conversation: {
       type: ObjectId,
-      ref: 'ChatRoom'
+      ref: 'Conversation'
     },
-    senderId: {
+    sender: {
+      type: ObjectId,
+      ref: 'User'
+    },
+    recipient: {
       type: ObjectId,
       ref: 'User'
     },
     text: {
       type: String,
-    }
+    },
+    media: Array,
   }, { timestamps: true })
 
 const ChatMessage = mongoose.model("ChatMessage", ChatMessageSchema);

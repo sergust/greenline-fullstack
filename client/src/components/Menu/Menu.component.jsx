@@ -22,7 +22,7 @@ const links = [
   },
   {
     text: "Chat",
-    link: "/chat",
+    link: "/message",
   },
 ];
 
