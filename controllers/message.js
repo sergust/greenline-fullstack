@@ -21,7 +21,7 @@ exports.createChatMessage = async (req, res) => {
   try {
     const { recipient, text, media } = req.body;
 
-    if (!isAuthorized(req.user.id, req.body?.sender)) {
+    if (!isAuthorized(req.user.id, req.body.sender)) {
       throw new Error("Message cannot be saved");
     }
 
@@ -54,7 +54,7 @@ exports.createChatMessage = async (req, res) => {
 
     res.json({ msg: "Created." });
   } catch (err) {
-    res.status(500).json({msg: err.message});
+    res.status(500).json({ msg: err.message });
   }
 };
 
@@ -70,8 +70,7 @@ exports.getChatMessage = async (req, res) => {
       req.query
     ).paginating();
 
-    const messages = await features.query
-      .sort("-createdAt");
+    const messages = await features.query.sort("-createdAt");
 
     res.json({
       messages,
@@ -102,4 +101,4 @@ exports.getConversations = async (req, res) => {
   } catch (err) {
     return res.status(500).json({ msg: err.message });
   }
-}
+};
