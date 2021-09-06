@@ -7,15 +7,14 @@ const OrderSchema = new Schema(
   {
     products: [
       {
-        type: ObjectId,
-        ref: "Product",
-        quantity: Number,
-        user: { ref: "User" },
+        product: { type: ObjectId, ref: "Product", quantity: Number },
+        quantity: { type: Number, required: true },
       },
     ],
+    client: { ref: "User", type: ObjectId },
   },
   { timestamps: true }
 );
 
 const Order = mongoose.model("Order", OrderSchema);
-module.exports = OrderSchema;
+module.exports = Order;

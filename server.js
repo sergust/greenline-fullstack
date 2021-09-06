@@ -28,6 +28,7 @@ app.use("/api/comment", require("./routes/api/comment"));
 app.use("/api/message", require("./routes/api/message"));
 app.use("/api/business", require("./routes/api/business"));
 app.use("/api/product", require("./routes/api/product"));
+app.use("/api/order", require("./routes/api/order"));
 
 //socket server
 io.on("connection", (socket) => {
