@@ -15,7 +15,7 @@ function Products() {
       <Col lg="2">
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Control type="text" value="10" />
+            <Form.Control type="text" value={1} />
           </Form.Group>
         </Form>
       </Col>

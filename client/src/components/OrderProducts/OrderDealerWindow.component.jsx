@@ -8,7 +8,7 @@ import Products from "../Products/Products.component";
 import { getOrders } from "../../redux/actions/orderAction";
 
 function OrderDealerWindow() {
-  const { orders } = useSelector((state) => state.order);
+  const { loading, orders } = useSelector((state) => state.order);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,7 +24,13 @@ function OrderDealerWindow() {
         </Row>
         <Col className="orderContainer">
           <Row>
-            <Col lg="2"></Col>
+            <Col lg="2">
+              <Row>
+                {orders.map((order) => {
+                  return <p>{order.createdAt}</p>;
+                })}
+              </Row>
+            </Col>
             <Col lg="10" className="column2">
               <Row className="containerTitle">
                 <Col lg="11" md="10" sm="10">
@@ -40,12 +46,6 @@ function OrderDealerWindow() {
                 <Col lg="4">Description</Col>
                 <Col lg="2">Reorder Quantity</Col>
               </Row>
-
-              {orders.map((order) => {
-                return <Products />;
-              })}
-
-              <Products />
             </Col>
           </Row>
         </Col>

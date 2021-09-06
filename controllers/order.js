@@ -3,11 +3,15 @@ const Order = require("../models/Order");
 // Get all orders
 exports.getOrders = async (req, res) => {
   try {
-    const order = await Order.find({});
+    const user = req.user.id;
+    let order = await Order.find().populate("products.product");
 
     if (!order) {
       throw new Error("No orders found");
     }
+
+    // order = order.filter((order) => order.client === user);
+
     return res.status(200).json({ data: order, size: order.length });
   } catch (error) {
     console.log(error);
