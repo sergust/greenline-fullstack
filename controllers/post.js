@@ -52,7 +52,6 @@ exports.createPost = async (req, res) => {
 
     return res.status(200).json(post);
   } catch (error) {
-    console.log(error);
     res.status(400).json({ error: "Cannot save post in db" });
     return;
   }

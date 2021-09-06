@@ -10,7 +10,7 @@ const AdminRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        userInfo && userInfo.token && userInfo.role === "admin" ? (
+        userInfo && userInfo.token && userInfo.role !== "user" ? (
           <Component {...props} />
         ) : (
           <Redirect

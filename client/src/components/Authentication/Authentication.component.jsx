@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -26,13 +25,13 @@ const Authentication = () => {
   return (
     <Row className="authentication" noGutters>
       <div className="authentication--avatar">
-        <Link to={currentUserDetail?.role === "admin" ? "/admin/profile" : "/profile"} style={{textDecoration: "none"}}>
+        <Link to={currentUserDetail?.role !== "user" ? "/admin/profile" : "/profile"} style={{textDecoration: "none"}}>
           <InitialsRound initials={`${name[0]}${name[1]}`.toUpperCase()} />
         </Link>
       </div>
       <div>
         <div className="auth-name">Hi, {name}</div>
-        <Link className="auth-logout" onClick={handleLogout}>Log out</Link>
+        <div className="auth-logout" onClick={handleLogout}>Log out</div>
       </div>
     </Row>
   );

@@ -175,7 +175,7 @@ export const updateProfileUser = (userData) => async (dispatch, getState) => {
       payload: { loading: true },
     });
 
-    const res = await axios.post(URL, userData, config);
+    await axios.post(URL, userData, config);
 
     dispatch({
       type: PROFILE_TYPES.UPDATE_USER_PROFILE,

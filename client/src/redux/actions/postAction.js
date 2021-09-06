@@ -70,11 +70,10 @@ export const getPosts = (skip, limit) => async (dispatch, getState) => {
     dispatch({ type: POST_TYPES.LOADING_POST, payload: true });
 
     //get authentication token from the user
-    const { auth, homePosts } = getState();
+    const { auth} = getState();
     const {
       userInfo: { token },
     } = auth;
-    const { posts } = homePosts;
     const URL = `${API}/post`;
 
     //setting header

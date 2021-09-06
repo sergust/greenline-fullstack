@@ -14,13 +14,21 @@ import OrderProductsManufacturer from "./pages/OrderProducts/OrderProductsManufa
 import io from "socket.io-client";
 import AdminRoute from "./customRouter/AdminRoute";
 import PrivateRoute from "./customRouter/PrivateRoute";
+import SuperAdminRoute from "./customRouter/SuperAdminRoute";
 import SubscriberRoute from "./customRouter/SubscriberRoute";
-import Videos from "./pages/Videos/Videos.component";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { SOCKET } from "./redux/actions/action.types";
 import SocketClient from "./SocketClient";
 import "./App.css";
+import ShowProducts from "./pages/Products/ShowProducts.component";
+import ProductsDetail from "./pages/Products/ProductsDetail.component";
+import Productslist from "./pages/Products/Productslist.component";
+import Categorylist from "./pages/Category/Categorylist.component";
+import CreateProducts from "./pages/Products/CreateProducts.component";
+import CreateCategories from './pages/Category/CreateCategories.component'
+import Videos from "./pages/Videos/Videos.component";
+import CreateVideos from "./pages/Videos/CreateVideos.component";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,12 +48,19 @@ function App() {
           <PrivateRoute exact path="/" component={HomePage} />
           <Route path="/login" component={SignIn} />
           <Route path="/signup" component={SignUp} />
+          <Route path="/dealer" component={OrderProductsDealer} />
+          <Route path="/manufacturer" component={OrderProductsManufacturer} />
           <PrivateRoute path="/profile" component={UserProfile} />
           <PrivateRoute path="/message" component={Message} />
           <PrivateRoute path="/conversation/:id" component={Conversation} />
+          <PrivateRoute path="/products" component={ShowProducts} />
+          <PrivateRoute path="/product/:id" component={ProductsDetail}/>
           <AdminRoute path="/admin/profile" component={AdminProfile} />
-          <Route path="/dealer" component={OrderProductsDealer} />
-          <Route path="/manufacturer" component={OrderProductsManufacturer} />
+          <SuperAdminRoute path="/admin/productlist" component={Productslist}/>
+          <SuperAdminRoute path="/admin/categorylist" component={Categorylist}/>
+          <SuperAdminRoute path="/admin/product/create" component={CreateProducts}/>
+          <SuperAdminRoute path="/admin/category/create" component={CreateCategories}/>
+          <SuperAdminRoute path="/admin/video/add" component={CreateVideos}/>
           <SubscriberRoute path="/videos" component={Videos} />
           <Route path="*" component={NotFound} />
         </Switch>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, InputGroup, Form } from "react-bootstrap";
+import { Row, Col, Form } from "react-bootstrap";
 import "./Products.styles.scss";
 
 function Products() {

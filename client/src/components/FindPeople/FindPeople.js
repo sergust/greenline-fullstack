@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {makeStyles} from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
@@ -70,7 +70,7 @@ export default function FindPeople() {
                   </ListItemAvatar>
                   <ListItemText primary='Name' className={classes.listItemText} />
                   <ListItemSecondaryAction className={classes.follow}>
-                    <Link>
+                    <Link to="/">
                       <IconButton variant="contained" color="secondary" className={classes.viewButton}>
                         <ViewIcon/>
                       </IconButton>
@@ -86,7 +86,7 @@ export default function FindPeople() {
                   </ListItemAvatar>
                   <ListItemText primary='Name' />
                   <ListItemSecondaryAction className={classes.follow}>
-                    <Link>
+                    <Link to="#">
                       <IconButton variant="contained" color="secondary" className={classes.viewButton}>
                         <ViewIcon/>
                       </IconButton>
@@ -102,7 +102,7 @@ export default function FindPeople() {
                   </ListItemAvatar>
                   <ListItemText primary='Name' />
                   <ListItemSecondaryAction className={classes.follow}>
-                    <Link>
+                    <Link to="#">
                       <IconButton variant="contained" color="secondary" className={classes.viewButton}>
                         <ViewIcon/>
                       </IconButton>

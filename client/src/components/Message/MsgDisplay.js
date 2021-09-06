@@ -28,9 +28,7 @@ const MsgDisplay = ({ user, msg, theme }) => {
         ))}
 
       <div className="chat_time">
-        {console.log(moment().fromNow())}
-        {console.log(msg.createdAt)}
-        {moment(new Date(msg.createdAt)).fromNow()}
+        {moment(new Date(msg.createdAt).toLocaleString()).fromNow()}
       </div>
     </>
   );

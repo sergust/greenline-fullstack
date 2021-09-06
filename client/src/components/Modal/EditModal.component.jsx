@@ -25,7 +25,7 @@ function EditModal(props) {
         },
       });
     }
-  }, [userProfile, users.length, currentUserDetail?._id.length]);
+  }, [currentUserDetail,userProfile, users.length, currentUserDetail?._id.length]);
 
   const handleSaveChange = () => {
     const {phoneNumber, social} = formData;
@@ -140,7 +140,6 @@ function EditModal(props) {
                 placeholder="Facebook link*"
                 className="input-area"
                 style={{ borderBottom: "1px solid #ececec" }}
-                className="input-area"
                 value={formData.social?.facebook}
                 onChange={(e) =>
                   setFormData({

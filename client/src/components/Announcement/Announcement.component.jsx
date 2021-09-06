@@ -1,11 +1,9 @@
 import React from "react";
-import { Row, Col, Form } from "react-bootstrap";
+import { Row, Col} from "react-bootstrap";
 import AnnouncementHeader from "./AnnouncementHeader.component";
 import AnnouncementFooter from "./AnnouncementFooter.component";
 import AnnouncementComment from "./AnnouncementComment.component";
 import "./Announcement.styles.scss";
-
-
 
 function Announcement({ post }) {
   const {
@@ -39,6 +37,7 @@ function Announcement({ post }) {
             <img
               src={postPicture}
               style={{ width: "100%", maxHeight: "300px", objectFit: "cover" }}
+              alt="post_picture"
             />
           </div>
         )}

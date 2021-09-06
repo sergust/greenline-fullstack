@@ -82,7 +82,6 @@ const Comment = ({ comment, post }) => {
               value={newComment}
               style={{resize: "none", height: "40px"}}
               className="mb-2"
-              value={newComment}
               onChange={e => setNewComment(e.target.value)}
             />
             <span
