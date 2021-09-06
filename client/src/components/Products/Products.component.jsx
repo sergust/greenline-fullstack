@@ -4,19 +4,18 @@ import "./Products.styles.scss";
 
 function Products() {
   return (
-    <Row className='product'>
+    <Row className="product">
       <Col lg="1">
-        <input type="checkbox" className = 'check'/>
+        <input type="checkbox" className="check" />
       </Col>
       <Col lg="3">Kitchen Cleaner</Col>
       <Col lg="4">
         Greenline Bathroom and Shower Cleaner, is ready to use, 2-in-1
       </Col>
-      <Col lg="2">150</Col>
       <Col lg="2">
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Control type="text" value='10' />
+            <Form.Control type="text" value="10" />
           </Form.Group>
         </Form>
       </Col>

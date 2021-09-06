@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "../Header/Header.component";
 import Footer from "../Footer/Footer.component";
 import { Row, Col, Button } from "react-bootstrap";
 import "./OrderProducts.styles.scss";
 import Products from "../Products/Products.component";
+import { getOrders } from "../../redux/actions/orderAction";
 
 function OrderDealerWindow() {
+  const { orders } = useSelector((state) => state.order);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getOrders());
+  }, [dispatch]);
+
   return (
     <div>
       <Header />
@@ -18,31 +27,25 @@ function OrderDealerWindow() {
             <Col lg="2"></Col>
             <Col lg="10" className="column2">
               <Row className="containerTitle">
-                <Col lg='11' md='10' sm='10'>
+                <Col lg="11" md="10" sm="10">
                   <Button className="btn float-left">Remove Selected</Button>
                 </Col>
-                <Col lg = '1' md='2' sm='2'>
+                <Col lg="1" md="2" sm="2">
                   <Button className="btn float-left">Order</Button>
                 </Col>
               </Row>
               <Row className="title">
-                  <Col lg='1'></Col>
-                  <Col lg='3'>Product</Col>
-                  <Col lg='4'>Description</Col>
-                  <Col lg='2'>In Stock</Col>
-                  <Col lg='2'>Reorder Quantity</Col>
+                <Col lg="1"></Col>
+                <Col lg="3">Product</Col>
+                <Col lg="4">Description</Col>
+                <Col lg="2">Reorder Quantity</Col>
               </Row>
-              
+
+              {orders.map((order) => {
+                return <Products />;
+              })}
+
               <Products />
-              <Products />
-              <Products />
-              <Products />
-              <Products />
-              <Products />
-              <Products />
-              <Products />
-              <Products />
-              
             </Col>
           </Row>
         </Col>
