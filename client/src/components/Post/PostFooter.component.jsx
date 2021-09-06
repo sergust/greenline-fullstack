@@ -14,7 +14,7 @@ const PostFooter = ({likes, comments, postId}) => {
     if(likes.includes(userId)) {
       setIsLike(true)
     }
-  }, [likes]) 
+  }, [likes, userId]) 
 
   const handleLike = async () => {
     dispatch(likePost(targetPost));

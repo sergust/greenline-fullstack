@@ -1,87 +1,90 @@
 const Product = require("../models/Product");
 
-// Get all products
-exports.getProducts = async (req, res) => {
-  try {
-    const product = await Product.find({});
-
-    if (!product) {
-      throw new Error("No products found");
-    }
-    return res.status(200).json({ data: product, size: product.length });
-  } catch (error) {
-    console.log(error);
-    return res
-      .status(404)
-      .json({ error: error.message ? error.message : "Bad request" });
-  }
+exports.getProductById = (req, res, next, id) => {
+  Product.findById(id)
+    .populate("category", "name")
+    .exec((err, product) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Product not found in DB",
+        });
+      }
+      req.product = product;
+      next();
+    });
 };
 
-// Get the product by ID
-exports.getProductById = async (req, res, next, id) => {
-  try {
-    const product = await Product.findById(id);
-    req.product = product;
-    next();
-  } catch (error) {
-    res
-      .status(400)
-      .json({ error: "Cannot find the product associated with ID" });
-    return;
-  }
+exports.getProduct = (req, res) => {
+  return res.json(req.product);
 };
 
-// Add a product
-exports.addProduct = async (req, res) => {
+exports.createProduct = async (req, res) => {
   try {
-    // req.body.author = req.user.id;
-    console.log(req.body);
-
-    const product = new Product(req.body);
+    let product = new Product(req.body);
+    product.user = req.user.id;
     await product.save();
 
     return res.status(200).json(product);
   } catch (error) {
     console.log(error);
-    res.status(400).json({ error: "Cannot save product in db" });
+    res.status(400).json({ errorMsg: error.message ? error.message : "Cannot save product" });
     return;
   }
 };
 
-//delete the existing product
-exports.deleteProduct = async (req, res) => {
-  try {
-    const product = req.product;
-
-    const deletedProduct = await Product.findByIdAndDelete({
-      _id: req.product._id,
+// delete controllers
+exports.deleteProduct = (req, res) => {
+  let product = req.product;
+  product.remove((err, deletedProduct) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Failed to delete the product",
+      });
+    }
+    res.json({
+      message: "Deletion was a success",
+      deletedProduct,
     });
-    return res.status(200).json({ deletedProduct });
-  } catch (error) {
-    res
-      .status(400)
-      .json({ error: error.message ? error.message : "Cannot delete product" });
-
-    return;
-  }
+  });
 };
 
-//update and return an existing product
-exports.updateProduct = async (req, res) => {
-  try {
-    let { body, image } = req.body;
-    const product = req.product;
 
-    product.body = body;
-    product.image = image;
+//product listing
+exports.getAllProducts = (req, res) => {
+  let limit = req.query.limit ? parseInt(req.query.limit) : 0;
+  let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
 
-    await post.save();
-    return res.status(200).json(product);
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({
-      error: error.message ? error.message : "Cannot update product",
+  Product.find()
+    .select("name image category")
+    .populate("category", "name")
+    .sort([[sortBy, "asc"]])
+    .limit(limit)
+    .exec((err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: "NO product FOUND",
+        });
+      }
+      res.json(products);
     });
-    return;
-  }
+};
+
+//get Product by Id
+exports.getProductByCategory = (req, res) => {
+  let limit = req.query.limit ? parseInt(req.query.limit) : 0;
+  let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+  const { categoryId } = req.params;
+
+  Product.find({category: categoryId.toString()})
+    .select("name image category")
+    .sort([[sortBy, "asc"]])
+    .limit(limit)
+    .exec((err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: "NO product FOUND",
+        });
+      }
+      res.json(products);
+    });
 };

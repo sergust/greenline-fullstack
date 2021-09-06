@@ -21,6 +21,7 @@ function UpdatePostModal(props) {
     toast("Post Updated Successfully!", {
       type: "success"
     })
+    setUpdatePostPicture("");
   }
 
   return (

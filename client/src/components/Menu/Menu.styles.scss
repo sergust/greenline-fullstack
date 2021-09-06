@@ -16,3 +16,13 @@
     }
   }
 }
+
+.dropdown-items{
+  &:hover{
+    background-color: #ececec;
+  }
+}
+
+.dropdown-items.active, .dropdown-items:active{
+  background-color: #ececec;
+}

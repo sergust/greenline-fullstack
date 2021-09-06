@@ -14,6 +14,7 @@ const PostBody = ({ body, postPicture }) => {
           <img
             src={postPicture}
             style={{ width: "100%", maxHeight: "300px", objectFit: "cover" }}
+            alt="Post"
           />
         </div>
       )}

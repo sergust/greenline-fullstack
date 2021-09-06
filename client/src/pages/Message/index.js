@@ -1,21 +1,13 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import Footer from "../../components/Footer/Footer.component";
 import Header from "../../components/Header/Header.component";
 import LeftSide from "../../components/Message/LeftSide";
-import { loadUser } from "../../redux/actions/authAction";
 import { Container, Row } from "react-bootstrap";
 import "../HomePage/HomePage.styles.scss";
 import "./Message.styles.scss";
 import { FaFacebookMessenger } from "react-icons/fa";
 
 const Message = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(loadUser());
-  }, [dispatch]);
-
   return (
     <Container fluid>
       <Header />

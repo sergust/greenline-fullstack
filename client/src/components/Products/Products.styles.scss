@@ -1,18 +1,37 @@
 @import "src/styles/variables.scss";
 
-.product{
-    padding: 12px;
-    &:nth-child(odd){
-        background-color: $light-grey;
-    }
+.product {
+  padding: 12px;
+  &:nth-child(odd) {
+    background-color: $light-grey;
+  }
 }
 
-.check{
-    width: 17px;
-    height: 17px;
-    background-color: $light-grey;
-    &:checked{
-        color: #000;
-        
+.product-title {
+  text-decoration: none !important;
+  &:hover {
+    color: $primary-light;
+  }
+}
+
+.check {
+  width: 17px;
+  height: 17px;
+  background-color: $light-grey;
+  &:checked {
+    color: #000;
+  }
+}
+
+.dlt-btn{
+    background-color: transparent;
+    border: none;
+}
+
+.goBack{
+    color: gray;
+    &:hover{
+        color: gray;
+        text-decoration: none !important;
     }
 }

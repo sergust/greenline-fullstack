@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Dropdown} from "react-bootstrap";
 import { Picker } from "emoji-mart";
 import "emoji-mart/css/emoji-mart.css";

@@ -10,7 +10,7 @@ import { getPosts } from "../../redux/actions/postAction";
 
 const Feed = () => {
   const { auth } = useSelector((state) => state);
-  const { loading, posts } = useSelector((state) => state.homePosts);
+  const { posts } = useSelector((state) => state.homePosts);
   const { errorMsg } = useSelector((state) => state.fail);
   const {
     userInfo: { role },
@@ -36,7 +36,7 @@ const Feed = () => {
     <Container fluid>
       <Row>
         <Col lg="7">
-          {role === "admin" && <ShareThoughts />}
+          {(role === "admin" || role === "superAdmin") && <ShareThoughts />}
           {posts.map((post) => {
             return <Post {...post} key={post._id} />;
           })}

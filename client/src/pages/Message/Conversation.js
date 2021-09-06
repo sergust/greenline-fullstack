@@ -1,22 +1,14 @@
-import React, {useEffect} from "react";
+import React from "react";
 import Footer from "../../components/Footer/Footer.component";
 import Header from "../../components/Header/Header.component";
 import { Container, Row } from "react-bootstrap";
 import LeftSide from "../../components/Message/LeftSide";
 import RightSide from "../../components/Message/RightSide";
 import "../HomePage/HomePage.styles.scss";
-import { useDispatch } from "react-redux";
-import { loadUser } from "../../redux/actions/authAction";
 import "./Message.styles.scss";
 
 
 const Conversation = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(loadUser());
-  }, [dispatch]);
-
   return (
     <Container fluid>
       <Header />

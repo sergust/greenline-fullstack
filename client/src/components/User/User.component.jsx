@@ -1,6 +1,6 @@
 import React from "react";
 import InitialsRound from "../InitialsRound/InitialsRound.component";
-import { Row, Col } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import './User.styles.scss'
 
 function User() {
