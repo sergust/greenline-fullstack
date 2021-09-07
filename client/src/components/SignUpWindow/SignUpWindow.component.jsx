@@ -106,7 +106,7 @@ const SignUpWindow = () => {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
-        <span class="pwd-toggler">
+        <span className="pwd-toggler">
           {isToggle ? (
             <FaEyeSlash size="20" onClick={handlePasswordToggle} />
           ) : (
@@ -126,7 +126,7 @@ const SignUpWindow = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
           value={confirmPassword}
         />
-        <span class="cpassword-toggler">
+        <span className="cpassword-toggler">
           {isCPToggle ? (
             <FaEyeSlash size="20" onClick={handleCPasswordToggle} />
           ) : (

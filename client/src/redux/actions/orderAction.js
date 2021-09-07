@@ -1,5 +1,5 @@
 import axios from "axios";
-import { REQUEST, FAIL } from "./action.types";
+import { FAIL } from "./action.types";
 import { API } from "../../backend";
 import { ORDER_TYPES } from "../types/order";
 
