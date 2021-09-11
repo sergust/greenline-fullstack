@@ -27,7 +27,9 @@ exports.createProduct = async (req, res) => {
     return res.status(200).json(product);
   } catch (error) {
     console.log(error);
-    res.status(400).json({ errorMsg: error.message ? error.message : "Cannot save product" });
+    res.status(400).json({
+      errorMsg: error.message ? error.message : "Cannot save product",
+    });
     return;
   }
 };
@@ -48,14 +50,13 @@ exports.deleteProduct = (req, res) => {
   });
 };
 
-
 //product listing
 exports.getAllProducts = (req, res) => {
   let limit = req.query.limit ? parseInt(req.query.limit) : 0;
   let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
 
   Product.find()
-    .select("name image category")
+    .select("name image category description")
     .populate("category", "name")
     .sort([[sortBy, "asc"]])
     .limit(limit)
@@ -75,7 +76,7 @@ exports.getProductByCategory = (req, res) => {
   let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
   const { categoryId } = req.params;
 
-  Product.find({category: categoryId.toString()})
+  Product.find({ category: categoryId.toString() })
     .select("name image category")
     .sort([[sortBy, "asc"]])
     .limit(limit)
