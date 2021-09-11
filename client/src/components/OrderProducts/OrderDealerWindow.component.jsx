@@ -10,23 +10,47 @@ import MaterialTable from "material-table";
 import tableIcons from "../../utils/icons";
 import OrderItem from "../OrderItem/OrderItem.component";
 import moment from "moment";
+import { listProducts } from "../../redux/actions/productAction";
 
 function OrderDealerWindow() {
   const { loading, orders } = useSelector((state) => state.order);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getOrders());
   }, [dispatch]);
 
+  const {
+    userInfo: { token },
+  } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(listProducts(token));
+  }, [dispatch, token]);
+
+  const products = useSelector((state) => state.productList.products);
+
   const [currentOrder, setCurrentOrder] = useState({});
+
+  const [productsToAdd, setProductsToAdd] = useState([]);
 
   function selectOrder(index) {
     setCurrentOrder({ ...orders[index] });
   }
 
   function addProduct() {
-    console.log("add product");
+    const productsToAddWithQuantity = productsToAdd.map((product) => ({
+      product: { ...product },
+      quantity: 1,
+    }));
+    setCurrentOrder({
+      ...currentOrder,
+      products: [
+        ...(currentOrder.products || []),
+        ...productsToAddWithQuantity,
+      ],
+    });
   }
 
   function putOrder() {
@@ -49,7 +73,11 @@ function OrderDealerWindow() {
                 ) : (
                   <ListGroup>
                     {orders.map((order, index) => (
-                      <ListGroup.Item action onClick={() => selectOrder(index)}>
+                      <ListGroup.Item
+                        action
+                        key={index}
+                        onClick={() => selectOrder(index)}
+                      >
                         {moment(order.createdAt).format("MMMM Do YY") ||
                           "no date"}
                       </ListGroup.Item>
@@ -86,7 +114,6 @@ function OrderDealerWindow() {
                         const index = oldData.tableData.id;
                         orderUpdate.products[index] = newData;
                         setCurrentOrder({ ...orderUpdate });
-
                         resolve();
                       }, 0);
                     }),
@@ -97,13 +124,12 @@ function OrderDealerWindow() {
                         const index = oldData.tableData.id;
                         orderUpdate.products.splice(index, 1);
                         setCurrentOrder({ ...orderUpdate });
-
                         resolve();
                       }, 0);
                     }),
                 }}
               />
-              <Row className="mt-4">
+              <Row className="mt-4 mb-4">
                 <Col lg="11" md="10" sm="10">
                   <Button className="btn float-left" onClick={addProduct}>
                     Add product
@@ -115,6 +141,25 @@ function OrderDealerWindow() {
                   </Button>
                 </Col>
               </Row>
+              <MaterialTable
+                icons={tableIcons}
+                columns={[
+                  {
+                    title: "Product name",
+                    field: "name",
+                    render: (rowData) => <>{rowData.name || ""}</>,
+                  },
+                  {
+                    title: "Product ID",
+                    field: "_id",
+                    render: (rowData) => <>{rowData._id || ""}</>,
+                  },
+                ]}
+                data={products || []}
+                title="Add products to the order"
+                options={{ selection: true }}
+                onSelectionChange={(rows) => setProductsToAdd([...rows])}
+              />
             </Col>
           </Row>
         </Col>
