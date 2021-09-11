@@ -93,13 +93,13 @@ function OrderDealerWindow() {
                   onRowDelete: (oldData) =>
                     new Promise((resolve, reject) => {
                       setTimeout(() => {
-                        // const dataDelete = [...data];
-                        // const index = oldData.tableData.id;
-                        // dataDelete.splice(index, 1);
-                        // setData([...dataDelete]);
+                        const orderUpdate = { ...currentOrder };
+                        const index = oldData.tableData.id;
+                        orderUpdate.products.splice(index, 1);
+                        setCurrentOrder({ ...orderUpdate });
 
                         resolve();
-                      }, 1000);
+                      }, 0);
                     }),
                 }}
               />
