@@ -6,7 +6,6 @@ const config = require("config");
 const bcrypt = require("bcryptjs");
 const { check, validationResult } = require("express-validator");
 
-
 // @route   POST api/auth
 // @desc    Authenticate user & get token
 // @access  Public
@@ -49,7 +48,7 @@ router.post(
       jwt.sign(
         payload,
         config.get("jwtSecret"),
-        { expiresIn: 3600 },
+        { expiresIn: 99999999 },
         (err, token) => {
           if (err) throw err;
           res.json({ token, userId: user.id, role: user.role });

@@ -10,7 +10,7 @@ const orderReducer = (state = initialState, action) => {
     case ORDER_TYPES.GET_ORDERS:
       return {
         ...state,
-        orders: action.payload,
+        orders: [...action.payload],
       };
 
     default:
