@@ -25,6 +25,14 @@ function OrderDealerWindow() {
     setCurrentOrder({ ...orders[index] });
   }
 
+  function addProduct() {
+    console.log("add product");
+  }
+
+  function putOrder() {
+    //TODO: add API request
+  }
+
   return (
     <div>
       <Header />
@@ -71,14 +79,6 @@ function OrderDealerWindow() {
                 data={currentOrder.products || []}
                 title="Previous Order"
                 editable={{
-                  onRowAdd: (newData) =>
-                    new Promise((resolve, reject) => {
-                      setTimeout(() => {
-                        // setData([...data, newData]);
-
-                        resolve();
-                      }, 1000);
-                    }),
                   onRowUpdate: (newData, oldData) =>
                     new Promise((resolve, reject) => {
                       setTimeout(() => {
@@ -105,10 +105,14 @@ function OrderDealerWindow() {
               />
               <Row className="mt-4">
                 <Col lg="11" md="10" sm="10">
-                  <Button className="btn float-left">Remove Selected</Button>
+                  <Button className="btn float-left" onClick={addProduct}>
+                    Add product
+                  </Button>
                 </Col>
                 <Col lg="1" md="2" sm="2">
-                  <Button className="btn float-left">Order</Button>
+                  <Button className="btn float-left" onClick={putOrder}>
+                    Order
+                  </Button>
                 </Col>
               </Row>
             </Col>
