@@ -22,7 +22,7 @@ function OrderDealerWindow() {
   }, [dispatch]);
 
   const {
-    userInfo: { token },
+    userInfo: { token, userId },
   } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -40,10 +40,12 @@ function OrderDealerWindow() {
   }
 
   function addProduct() {
-    const productsToAddWithQuantity = productsToAdd.map((product) => ({
-      product: { ...product },
-      quantity: 1,
-    }));
+    const productsToAddWithQuantity = productsToAdd.map((product) => {
+      return {
+        product: { ...product },
+        quantity: 1,
+      };
+    });
     setCurrentOrder({
       ...currentOrder,
       products: [
@@ -53,8 +55,23 @@ function OrderDealerWindow() {
     });
   }
 
-  function putOrder() {
+  function placeOrder() {
     //TODO: add API request
+    // products: [
+    //   {
+    //     product: { type: ObjectId, ref: "Product", quantity: Number },
+    //     quantity: { type: Number, required: true },
+    //   },
+    // ],
+    // client: { ref: "User", type: ObjectId },
+    Object.assign(currentOrder, { client: userId });
+    let order = {
+      ...currentOrder,
+      products: currentOrder.products.map((product) => {
+        return product._id || product.product._id;
+      }),
+    };
+    // TODO: send data to BE
   }
 
   return (
@@ -136,7 +153,7 @@ function OrderDealerWindow() {
                   </Button>
                 </Col>
                 <Col lg="1" md="2" sm="2">
-                  <Button className="btn float-left" onClick={putOrder}>
+                  <Button className="btn float-left" onClick={placeOrder}>
                     Order
                   </Button>
                 </Col>
