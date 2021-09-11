@@ -57,19 +57,51 @@ function OrderDealerWindow() {
                   {
                     title: "Product",
                     field: "name",
-                    render: (rowData) => <span>{rowData.product.name}</span>,
+                    render: (rowData) => <>{rowData.product.name}</>,
+                    editable: "never",
                   },
                   {
                     title: "Description",
                     field: "description",
-                    render: (rowData) => (
-                      <span>{rowData.product.description}</span>
-                    ),
+                    render: (rowData) => <>{rowData.product.description}</>,
+                    editable: "never",
                   },
                   { title: "Quantity", field: "quantity", type: "numeric" },
                 ]}
                 data={currentOrder.products || []}
                 title="Previous Order"
+                editable={{
+                  onRowAdd: (newData) =>
+                    new Promise((resolve, reject) => {
+                      setTimeout(() => {
+                        // setData([...data, newData]);
+
+                        resolve();
+                      }, 1000);
+                    }),
+                  onRowUpdate: (newData, oldData) =>
+                    new Promise((resolve, reject) => {
+                      setTimeout(() => {
+                        const orderUpdate = { ...currentOrder };
+                        const index = oldData.tableData.id;
+                        orderUpdate.products[index] = newData;
+                        setCurrentOrder({ ...orderUpdate });
+
+                        resolve();
+                      }, 0);
+                    }),
+                  onRowDelete: (oldData) =>
+                    new Promise((resolve, reject) => {
+                      setTimeout(() => {
+                        // const dataDelete = [...data];
+                        // const index = oldData.tableData.id;
+                        // dataDelete.splice(index, 1);
+                        // setData([...dataDelete]);
+
+                        resolve();
+                      }, 1000);
+                    }),
+                }}
               />
               <Row className="mt-4">
                 <Col lg="11" md="10" sm="10">
