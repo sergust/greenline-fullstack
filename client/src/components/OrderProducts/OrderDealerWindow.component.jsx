@@ -22,7 +22,7 @@ function OrderDealerWindow() {
   const [currentOrder, setCurrentOrder] = useState({});
 
   function selectOrder(index) {
-    setCurrentOrder(orders[index]);
+    setCurrentOrder({ ...orders[index] });
   }
 
   return (
