@@ -51,21 +51,25 @@ function ListProducts() {
             </tr>
           </thead>
           <tbody>
-            {productList?.products.map((product) => (
-              <tr key={product._id}>
-                <td>{product._id}</td>
-                <td>{product.name}</td>
-                <td>{product.category.name}</td>
-                <td>
-                  <button
-                    className="dlt-btn"
-                    onClick={() => handleDelete(product._id)}
-                  >
-                    <RiDeleteBin6Fill color="#c21808" size={20} />
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {productList.products ? (
+              productList.products.map((product) => (
+                <tr key={product._id}>
+                  <td>{product._id || ""}</td>
+                  <td>{product.name || ""}</td>
+                  <td>{product.category ? product.category.name : ""}</td>
+                  <td>
+                    <button
+                      className="dlt-btn"
+                      onClick={() => handleDelete(product._id)}
+                    >
+                      <RiDeleteBin6Fill color="#c21808" size={20} />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <p>No products found</p>
+            )}
           </tbody>
         </Table>
       </div>

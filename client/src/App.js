@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage.component";
@@ -17,7 +17,7 @@ import PrivateRoute from "./customRouter/PrivateRoute";
 import SuperAdminRoute from "./customRouter/SuperAdminRoute";
 import SubscriberRoute from "./customRouter/SubscriberRoute";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { SOCKET } from "./redux/actions/action.types";
 import SocketClient from "./SocketClient";
 import "./App.css";
@@ -26,18 +26,18 @@ import ProductsDetail from "./pages/Products/ProductsDetail.component";
 import Productslist from "./pages/Products/Productslist.component";
 import Categorylist from "./pages/Category/Categorylist.component";
 import CreateProducts from "./pages/Products/CreateProducts.component";
-import CreateCategories from './pages/Category/CreateCategories.component'
+import CreateCategories from "./pages/Category/CreateCategories.component";
 import Videos from "./pages/Videos/Videos.component";
 import CreateVideos from "./pages/Videos/CreateVideos.component";
 
 function App() {
   const dispatch = useDispatch();
-  const { userInfo } = useSelector(state => state.auth)
+  const { userInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
     const socket = io("http://localhost:5000");
-    dispatch({type: SOCKET, payload: socket })
-    return () => socket.close()
+    dispatch({ type: SOCKET, payload: socket });
+    return () => socket.close();
   }, [dispatch]);
 
   return (
