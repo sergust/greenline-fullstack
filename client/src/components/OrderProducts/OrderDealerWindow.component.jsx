@@ -127,7 +127,7 @@ function OrderDealerWindow() {
                   { title: "Quantity", field: "quantity", type: "numeric" },
                 ]}
                 data={currentOrder.products || []}
-                title="Previous Order"
+                title="Order"
                 editable={{
                   onRowUpdate: (newData, oldData) =>
                     new Promise((resolve, reject) => {
@@ -151,17 +151,14 @@ function OrderDealerWindow() {
                     }),
                 }}
               />
-              <Row className="mt-4 mb-4">
-                <Col lg="11" md="10" sm="10">
-                  <Button className="btn float-left" onClick={addProduct}>
-                    Add product
-                  </Button>
-                </Col>
-                <Col lg="1" md="2" sm="2">
-                  <Button className="btn float-left" onClick={placeOrder}>
-                    Order
-                  </Button>
-                </Col>
+              <Row className="mt-4 mb-4 justify-content-between">
+                <Button className="btn float-left" onClick={addProduct}>
+                  Add product
+                </Button>
+
+                <Button className="btn float-left" onClick={placeOrder}>
+                  Place order
+                </Button>
               </Row>
               <MaterialTable
                 icons={tableIcons}

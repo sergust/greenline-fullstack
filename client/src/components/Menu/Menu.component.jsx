@@ -21,6 +21,10 @@ const links = [
     text: "Information Directory",
     link: "/products",
   },
+  {
+    text: "Reordeding",
+    link: "/dealer",
+  },
 ];
 
 const Menu = ({ location }) => {
@@ -57,7 +61,11 @@ const Menu = ({ location }) => {
               {text}
             </Nav.Link>
           ) : (
-            <NavDropdown title="Information Directory" id="basic-nav-dropdown" key={`menu-${index}`}>
+            <NavDropdown
+              title="Information Directory"
+              id="basic-nav-dropdown"
+              key={`menu-${index}`}
+            >
               <NavDropdown.Item
                 className="dropdown-item"
                 href="/admin/productlist"
