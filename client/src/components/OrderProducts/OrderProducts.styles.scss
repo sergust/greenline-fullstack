@@ -1,0 +1,40 @@
+@import "src/styles/variables.scss";
+h4 {
+  margin: 20;
+  color: $primary;
+  font-weight: bold;
+}
+
+.orderContainer {
+  border-top: 2px solid $light-grey;
+}
+
+.column2 {
+  border-left: 2px solid $light-grey;
+}
+
+.containerTitle {
+  background-color: $light-grey;
+  padding: 12px;
+}
+
+.btn {
+  background-color: #2dcea3;
+  border-color: #2dcea3;
+  &:hover {
+    background-color: $primary !important;
+    border-color: $primary !important;
+  }
+  &:focus{
+    background-color: $primary !important;
+    border-color: $primary !important;
+  }
+  &:active{
+    background-color: $primary !important;
+    border-color: $primary !important;
+  }
+}
+
+.title{
+    padding: 12px;
+}

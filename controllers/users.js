@@ -104,3 +104,17 @@ exports.getMyClients = async (req, res) => {
     return;
   }
 };
+
+exports.searchUser = async (req, res) => {
+  try {
+    const users = await User.find({
+      email: { $regex: req.query.email, $options: 'i' },
+    })
+      .limit(10)
+      .select("name email avatar");
+
+    res.json({ users });
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
+  }
+}

@@ -7,12 +7,27 @@ const {
   updatePost,
   deletePost,
   getAllPost,
-  toggleLikePost
+  toggleLikePost,
 } = require("../../controllers/post");
 
 //Fire when postId parameter is matched
 //store the post details in req.post
 router.param("postId", getPostById);
+
+//@router api/post/postId
+//@desc get the individual post detail
+//@access Private
+router.get("/:postId", isSignedIn, (req, res) => {
+  try {
+    if(!req.post) {
+      throw new Error('Post not found');
+    }
+    return res.status(200).json(req.post)
+  } catch (error) {
+    res.status(400).json({ error: "Cannot find the post associated with Id" });
+    return;
+  }
+})
 
 // @route GET api/post
 // @desc Test route

@@ -1,0 +1,40 @@
+@import "src/styles/variables.scss";
+.post-row {
+    float: left;
+    .post {
+      min-height: 130px;
+      border-radius: 5px;
+      background-color: #f5f5f5;
+    }
+  }
+.share-btn{
+    background-color: #2dcea3;
+    border-color: #2dcea3;
+    &:hover{
+      background-color: $primary;
+      border-color: $primary;
+    }
+}
+.camera-btn{
+    background-color: #2dcea3;
+    border-color: #2dcea3;
+    border-radius: 5px;
+    padding: 10px;
+    margin-right: 10;
+    &:hover{
+      background-color: $primary;
+      border-color: $primary;
+    }
+}
+.text-input{
+    border-color: white;
+    padding: 10px;
+    resize: none;
+    &:focus {
+      outline: none !important;
+      border:1px solid gray;
+    }
+}
+#icon-button-file {
+  display: none;
+}

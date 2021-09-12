@@ -3,6 +3,7 @@
     margin-bottom: 12px;
     border-radius: 24px;
     text-align: left;
+    width: 85%;
     .card-body {
         color: #5e5e5e;
         padding: 8px 12px;
@@ -12,4 +13,20 @@
         font-weight: 600;
         margin-bottom: 0;
     }
+}
+
+#comment-dropdown {
+  background: none;
+  border: none;
+  color: #00cea3;
+  padding: 0;
+  &::after {
+    display: none;
+  }
+  &:hover {
+    background-color: #fff !important;
+  }
+  &:focus {
+    background-color: #fff !important;
+  }
 }

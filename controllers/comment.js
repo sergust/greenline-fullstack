@@ -40,9 +40,8 @@ exports.postComment = async (req, res) => {
     await comment.save();
     await targetPost.save();
 
-    return res.status(200).json({ data: comment});
+    return res.status(200).json(comment);
   } catch (error) {
-    console.log(error);
     res.status(400).json({ error: "Cannot Comment, post may be deleted." });
     return;
   }
@@ -81,6 +80,7 @@ exports.deleteComment = async (req, res) => {
     const deletedComment = await Comment.findByIdAndDelete({ _id: req.comment._id });
     return res.status(200).json({ deletedComment });
   } catch (error) {
+    console.log(error)
     res.status(400).json({ error: error.message ? error.message : 'Cannot delete post.'});
     return;
   }

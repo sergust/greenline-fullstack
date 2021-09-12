@@ -1,53 +1,40 @@
-import React, { Fragment } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { logout } from "../../actions/auth";
+import InitialsRound from "../InitialsRound/InitialsRound.component";
+import { logout } from "../../redux/actions/authAction";
 import "./Authentication.styles.scss";
-import { Button } from "react-bootstrap";
 
-const Authentication = ({
-  auth: { isAuthenticated, loading, user },
-  logout,
-}) => {
-  const authContent = (
-    <div>
-      {user && <div className="auth-name">Hi, {user.name}!</div>}
-      <Button
-        className="auth-logout cursor-pointer"
-        variant="link"
-        onClick={logout}
-      >
-        Log out
-      </Button>
-    </div>
-  );
+const Authentication = () => {
+  const {auth} = useSelector(state => state);
+  const {currentUserDetail} = auth;
+  const dispatch = useDispatch();
+  const [name, setName] = useState("Cameron");
 
-  const guestContent = (
-    <div>
-      <Link className="auth-logout" to="/login">
-        Log in
-      </Link>
-    </div>
-  );
+  useEffect(() => {
+    if(currentUserDetail?.name) {
+      setName(currentUserDetail?.name);
+    }
+  }, [currentUserDetail?.name])
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <Row className="authentication" noGutters>
-      {!loading && user && (
-        <Fragment>{isAuthenticated ? authContent : guestContent}</Fragment>
-      )}
+      <div className="authentication--avatar">
+        <Link to={currentUserDetail?.role !== "user" ? "/admin/profile" : "/profile"} style={{textDecoration: "none"}}>
+          <InitialsRound initials={`${name[0]}${name[1]}`.toUpperCase()} />
+        </Link>
+      </div>
+      <div>
+        <div className="auth-name">Hi, {name}</div>
+        <div className="auth-logout" onClick={handleLogout}>Log out</div>
+      </div>
     </Row>
   );
 };
 
-Authentication.propTypes = {
-  logout: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-
-export default connect(mapStateToProps, { logout })(Authentication);
+export default Authentication;

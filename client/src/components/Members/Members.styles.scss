@@ -1,0 +1,27 @@
+@import "src/styles/variables.scss";
+// .container {
+//   width: 100%;
+//   float: left;
+//   margin: 20px 0;
+//   padding: 0px 50px;
+
+//   .sub-container {
+//     border-radius: 5px;
+//     background-color: #f5f5f5;
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: space-between;
+//     padding: 5px;
+//   }
+// }
+.post-row {
+    width: 100%;
+    float: left;
+    .posts {
+      min-height: 40px;
+      border-radius: 2px;
+      background-color: #F5F5F5;
+      border-left: 2px solid $primary;
+    }
+  }
+  

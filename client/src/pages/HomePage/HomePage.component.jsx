@@ -1,13 +1,15 @@
 import React from "react";
-import "./HomePage.styles.scss";
 import { Container, Row } from "react-bootstrap";
+import "./HomePage.styles.scss";
 import Feed from "../Feed/Feed.component";
 import Footer from "../../components/Footer/Footer.component";
+import Header from "../../components/Header/Header.component";
+
 
 const HomePage = () => {
   return (
-    <div>
       <Container fluid>
+        <Header />
         <Row>
           <Feed />
         </Row>
@@ -15,7 +17,7 @@ const HomePage = () => {
           <Footer />
         </Row>
       </Container>
-    </div>
+    
   );
 };
 

@@ -14,20 +14,28 @@ exports.getPostById = async (req, res, next, id) => {
 
 //get all the post
 exports.getAllPost = async (req, res) => {
+  const {skip, limit} = req.query;
   try {
     const post = await Post.find({})
     .populate({
       path: "comments",
-      select: "commentText commentBy -_id",
+      select: "commentText commentBy",
       populate: {
         path: "commentBy",
-        select: "name avatar -_id"
+        select: "name avatar"
       }
     })
+    .populate({
+      path: "author",
+      select: "name avatar"
+    })
+    .sort({_id: -1})
+    .skip(parseInt(skip))
+    .limit(parseInt(limit))
     if(!post) {
       throw new Error('Oops! Seems empty!')
     }
-    return res.status(200).json({ data: post });
+    return res.status(200).json({ data: post, size: post.length });
   } catch (error) {
     console.log(error);
     return res.status(404).json({ error: error.message ? error.message : 'Bad request' });
@@ -44,7 +52,6 @@ exports.createPost = async (req, res) => {
 
     return res.status(200).json(post);
   } catch (error) {
-    console.log(error);
     res.status(400).json({ error: "Cannot save post in db" });
     return;
   }
@@ -64,7 +71,7 @@ exports.updatePost = async (req, res) => {
     post.postPicture = postPicture;
 
     await post.save();
-    return res.status(200).json({ updatedPost: post });
+    return res.status(200).json(post);
   } catch (error) {
     console.log(error);
     res.status(400).json({ error: error.message ? error.message : 'Cannot update post.'});

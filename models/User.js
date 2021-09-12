@@ -16,12 +16,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  recentOrders: [
-    {
-      type: ObjectId,
-      ref: 'Order' 
-    }
-  ],
   avatar: {
     type: String,
   },
@@ -35,16 +29,7 @@ const UserSchema = new mongoose.Schema({
       type: ObjectId,
       ref: 'Post'
     }
-  ],
-  phoneNumber: {
-    type: Number,
-    trim: true,
-    unique: true,
-  },
-  clients: [{
-    type: ObjectId,
-    ref: 'User'
-  }]
+  ]
 }, {timestamps: true});
 
 module.exports = User = mongoose.model("User", UserSchema);

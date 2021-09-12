@@ -4,14 +4,25 @@
   height: 50px;
   margin-top: 20px;
   background: #00cea3;
-  padding: 0 20px;
+  padding: 0 40px;
 
   .menu-ul {
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     margin-top: 4px;
     a{
       color: white;
+      margin-right: 40px;
     }
   }
+}
+
+.dropdown-items{
+  &:hover{
+    background-color: #ececec;
+  }
+}
+
+.dropdown-items.active, .dropdown-items:active{
+  background-color: #ececec;
 }

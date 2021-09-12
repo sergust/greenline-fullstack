@@ -1,3 +1,17 @@
 $primary-light: #00cea3;
 $primary: #05a684;
 $light-grey: #ececec;
+
+.footer {
+    display: flex;
+    background-color: #F6F6F6;
+    color: #808080;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
+    p {
+      margin-bottom: 0px;
+    }
+  }

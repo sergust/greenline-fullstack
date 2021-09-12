@@ -1,0 +1,12 @@
+@import "src/styles/variables.scss";
+
+.profile-edit-btn {
+    &:active{
+        background-color: $primary !important;
+        border: 1px solid $primary !important;
+    };
+    &:focus {
+        background-color: $primary !important;
+        border: 1px solid $primary !important;
+    }
+}
