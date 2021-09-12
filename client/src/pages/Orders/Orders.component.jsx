@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../../components/Header/Header.component";
 import Footer from "../../components/Footer/Footer.component";
-import { Row, Col, Button, ListGroup } from "react-bootstrap";
+import { Row, Col, ListGroup } from "react-bootstrap";
 import { getOrders } from "../../redux/actions/orderAction";
 import MaterialTable from "material-table";
 import tableIcons from "../../utils/icons";
 import moment from "moment";
 import { listProducts } from "../../redux/actions/productAction";
-import { API } from "../../backend";
-import axios from "axios";
 
 function Orders() {
   const { loading, orders } = useSelector((state) => state.order);
@@ -21,7 +19,7 @@ function Orders() {
   }, [dispatch]);
 
   const {
-    userInfo: { token, userId },
+    userInfo: { token },
   } = useSelector((state) => state.auth);
 
   useEffect(() => {

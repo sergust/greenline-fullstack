@@ -4,11 +4,9 @@ import Header from "../Header/Header.component";
 import Footer from "../Footer/Footer.component";
 import { Row, Col, Button, ListGroup } from "react-bootstrap";
 import "./OrderProducts.styles.scss";
-import Products from "../Products/Products.component";
 import { getOrders } from "../../redux/actions/orderAction";
 import MaterialTable from "material-table";
 import tableIcons from "../../utils/icons";
-import OrderItem from "../OrderItem/OrderItem.component";
 import moment from "moment";
 import { listProducts } from "../../redux/actions/productAction";
 import { API } from "../../backend";
@@ -24,7 +22,7 @@ function OrderDealerWindow() {
   }, [dispatch]);
 
   const {
-    userInfo: { token, userId },
+    userInfo: { token },
   } = useSelector((state) => state.auth);
 
   useEffect(() => {

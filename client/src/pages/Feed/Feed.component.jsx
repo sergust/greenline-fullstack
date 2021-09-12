@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Post from "../../components/Post/Post.component";
 import LoadMoreBtn from "../../components/LoadMoreBtn/LoadMoreBtn.component";
-import FindPeople from "../../components/FindPeople/FindPeople";
 import ShareThoughts from "../../components/ShareThoughts/ShareThoughts.component";
 import { Row, Col, Container, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -53,10 +52,6 @@ const Feed = () => {
             <LoadMoreBtn skip={skip.current} limit={limit.current} />
           </Row>
         </Col>
-        {/* <Col lg="5"> */}
-        {/* <FindPeople /> */}
-        {/* Find People */}
-        {/* </Col> */}
       </Row>
     </Container>
   );
