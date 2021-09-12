@@ -40,6 +40,7 @@ exports.getOrderById = async (req, res, next, id) => {
 exports.addOrder = async (req, res) => {
   try {
     req.body.client = req.user.id;
+    console.log(req.user);
     delete req.body._id;
 
     const order = new Order(req.body);

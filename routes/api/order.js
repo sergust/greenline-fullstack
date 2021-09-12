@@ -8,8 +8,8 @@ const {
 } = require("../../controllers/order");
 
 // @route Get api/order
-// @desc Get all orders
-// @access Admin
+// @desc Get all orders for logged user
+// @access Private
 router.get("/", isSignedIn, getOrders);
 
 //Triggers when id parameter is matched

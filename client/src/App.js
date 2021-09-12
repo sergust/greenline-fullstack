@@ -29,6 +29,7 @@ import CreateProducts from "./pages/Products/CreateProducts.component";
 import CreateCategories from "./pages/Category/CreateCategories.component";
 import Videos from "./pages/Videos/Videos.component";
 import CreateVideos from "./pages/Videos/CreateVideos.component";
+import Orders from "./pages/Orders/Orders.component";
 
 function App() {
   const dispatch = useDispatch();
@@ -54,13 +55,23 @@ function App() {
           <PrivateRoute path="/message" component={Message} />
           <PrivateRoute path="/conversation/:id" component={Conversation} />
           <PrivateRoute path="/products" component={ShowProducts} />
-          <PrivateRoute path="/product/:id" component={ProductsDetail}/>
+          <PrivateRoute path="/product/:id" component={ProductsDetail} />
           <AdminRoute path="/admin/profile" component={AdminProfile} />
-          <SuperAdminRoute path="/admin/productlist" component={Productslist}/>
-          <SuperAdminRoute path="/admin/categorylist" component={Categorylist}/>
-          <SuperAdminRoute path="/admin/product/create" component={CreateProducts}/>
-          <SuperAdminRoute path="/admin/category/create" component={CreateCategories}/>
-          <SuperAdminRoute path="/admin/video/add" component={CreateVideos}/>
+          <SuperAdminRoute path="/admin/productlist" component={Productslist} />
+          <SuperAdminRoute
+            path="/admin/categorylist"
+            component={Categorylist}
+          />
+          <SuperAdminRoute
+            path="/admin/product/create"
+            component={CreateProducts}
+          />
+          <SuperAdminRoute
+            path="/admin/category/create"
+            component={CreateCategories}
+          />
+          <SuperAdminRoute path="/admin/video/add" component={CreateVideos} />
+          <SuperAdminRoute path="/admin/orders" component={Orders} />
           <SubscriberRoute path="/videos" component={Videos} />
           <Route path="*" component={NotFound} />
         </Switch>

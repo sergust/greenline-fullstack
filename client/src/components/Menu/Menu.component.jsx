@@ -25,6 +25,10 @@ const links = [
     text: "Reordeding",
     link: "/dealer",
   },
+  {
+    text: "Orders",
+    link: "/admin/orders",
+  },
 ];
 
 const Menu = ({ location }) => {

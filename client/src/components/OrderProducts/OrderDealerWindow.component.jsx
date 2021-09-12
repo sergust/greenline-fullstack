@@ -73,7 +73,7 @@ function OrderDealerWindow() {
 
       await axios.post(URL, currentOrder, config);
 
-      dispatch(listProducts(token));
+      dispatch(listProducts(token, null, true));
     } catch (e) {
       console.error(e);
     }
