@@ -40,6 +40,7 @@ exports.getOrderById = async (req, res, next, id) => {
 exports.addOrder = async (req, res) => {
   try {
     req.body.client = req.user.id;
+    delete req.body._id;
 
     const order = new Order(req.body);
     await order.save();
@@ -47,7 +48,7 @@ exports.addOrder = async (req, res) => {
     return res.status(200).json(order);
   } catch (error) {
     console.log(error);
-    res.status(400).json({ error: "Cannot save product in db" });
+    res.status(400).json({ error: "Cannot save order in db" });
     return;
   }
 };

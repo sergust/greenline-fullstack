@@ -11,6 +11,8 @@ import tableIcons from "../../utils/icons";
 import OrderItem from "../OrderItem/OrderItem.component";
 import moment from "moment";
 import { listProducts } from "../../redux/actions/productAction";
+import { API } from "../../backend";
+import axios from "axios";
 
 function OrderDealerWindow() {
   const { loading, orders } = useSelector((state) => state.order);
@@ -55,23 +57,26 @@ function OrderDealerWindow() {
     });
   }
 
-  function placeOrder() {
-    //TODO: add API request
-    // products: [
-    //   {
-    //     product: { type: ObjectId, ref: "Product", quantity: Number },
-    //     quantity: { type: Number, required: true },
-    //   },
-    // ],
-    // client: { ref: "User", type: ObjectId },
-    Object.assign(currentOrder, { client: userId });
-    let order = {
-      ...currentOrder,
-      products: currentOrder.products.map((product) => {
-        return product._id || product.product._id;
-      }),
-    };
-    // TODO: send data to BE
+  async function placeOrder() {
+    const copyProductOrder = { ...currentOrder };
+
+    copyProductOrder.products.forEach((product) => product._id);
+
+    try {
+      const URL = `${API}/order`;
+
+      const config = {
+        headers: {
+          "X-Auth-Token": `${token}`,
+        },
+      };
+
+      await axios.post(URL, currentOrder, config);
+
+      dispatch(listProducts(token));
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   return (

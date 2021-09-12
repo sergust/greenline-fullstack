@@ -39,3 +39,31 @@ export const getOrders = (skip, limit) => async (dispatch, getState) => {
     });
   }
 };
+
+// Place an order
+export const placeOrder = (order) => async (dispatch, getState) => {
+  try {
+    const { auth } = getState();
+    const {
+      userInfo: { token },
+    } = auth;
+    const URL = `${API}/order`;
+
+    const config = {
+      headers: {
+        "X-Auth-Token": `${token}`,
+      },
+      // params: {
+      //   ...order,
+      // },
+    };
+
+    const {
+      data: { data },
+    } = await axios.post(URL, order, config);
+
+    console.log(data);
+  } catch (e) {
+    console.error(e);
+  }
+};
