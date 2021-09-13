@@ -6,9 +6,14 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 const { check, validationResult } = require("express-validator");
 const User = require("../../models/User");
-const { isAdmin, isSignedIn, } = require("../../middleware/auth");
-const { addClient, removeClient, getMyClients, searchUser } = require("../../controllers/users");
-
+const { isAdmin, isSignedIn } = require("../../middleware/auth");
+const {
+  addClient,
+  removeClient,
+  getMyClients,
+  searchUser,
+  changePassword,
+} = require("../../controllers/users");
 
 // @route   GET api/users/
 // @desc    Test route
@@ -23,11 +28,10 @@ router.get("/", isSignedIn, async (req, res) => {
   }
 });
 
-//@route GET api/users/search 
+//@route GET api/users/search
 //@desc Search user by email
 //@access Private
-router.get('/search', isSignedIn, searchUser);
-
+router.get("/search", isSignedIn, searchUser);
 
 // @route   POST api/users
 // @desc    Register user
@@ -101,6 +105,18 @@ router.post(
   }
 );
 
+// @route   PUT api/users/change/password
+// @desc    Change User Password
+// @access  Admin Route
+router.put("/change/password", isSignedIn, [
+  check(
+    "newPassword",
+    "Please include a password with 6 or more characters"
+  ).isLength({
+    min: 6,
+  }),
+], changePassword);
+
 // @route   POST api/users/my/client
 // @desc    get the client details associated with the admin user
 // @access  Admin Route
@@ -109,11 +125,11 @@ router.get("/my/client", isSignedIn, isAdmin, getMyClients);
 // @route   POST api/users/add
 // @desc    Add a user to the client list
 // @access  Admin Route
-router.put('/add', isSignedIn, isAdmin, addClient)
+router.put("/add", isSignedIn, isAdmin, addClient);
 
 // @route   POST api/users/remove
 // @desc    Remove User from the client list
 // @access  Admin Route
-router.put('/remove', isSignedIn, isAdmin, removeClient)
+router.put("/remove", isSignedIn, isAdmin, removeClient);
 
 module.exports = router;

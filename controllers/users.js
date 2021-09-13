@@ -1,4 +1,6 @@
 const User = require("../models/User");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const { isAuthorized } = require("../middleware/auth");
 
 exports.addClient = async (req, res) => {
@@ -93,9 +95,7 @@ exports.getMyClients = async (req, res) => {
       "name email phoneNumber avatar"
     );
 
-    return res
-      .status(200)
-      .json({ membersInfo: clients });
+    return res.status(200).json({ membersInfo: clients });
   } catch (error) {
     console.log(error);
     res
@@ -108,7 +108,7 @@ exports.getMyClients = async (req, res) => {
 exports.searchUser = async (req, res) => {
   try {
     const users = await User.find({
-      email: { $regex: req.query.email, $options: 'i' },
+      email: { $regex: req.query.email, $options: "i" },
     })
       .limit(10)
       .select("name email avatar");
@@ -117,4 +117,33 @@ exports.searchUser = async (req, res) => {
   } catch (err) {
     return res.status(500).json({ msg: err.message });
   }
-}
+};
+
+exports.changePassword = async (req, res) => {
+  try {
+    const { userId, oldPassword, newPassword } = req.body;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new Error("User Not Found");
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+
+    if (!isMatch) {
+      return res
+        .status(400)
+        .json({ errors: [{ msg: "Old password do not match" }] });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+
+    user.password = await bcrypt.hash(newPassword, salt);
+
+    await user.save();
+    res.status(200).json({ msg: "Password Changed Successfully!"});
+  } catch (err) {
+    console.log(err)
+    res.status(400).json({error: "Unable to change Password"});
+  }
+};

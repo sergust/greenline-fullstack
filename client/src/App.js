@@ -29,6 +29,7 @@ import CreateProducts from "./pages/Products/CreateProducts.component";
 import CreateCategories from './pages/Category/CreateCategories.component'
 import Videos from "./pages/Videos/Videos.component";
 import CreateVideos from "./pages/Videos/CreateVideos.component";
+import ChangePassword from "./pages/Profile/ChangePassword.component";
 
 function App() {
   const dispatch = useDispatch();
@@ -50,6 +51,7 @@ function App() {
           <Route path="/signup" component={SignUp} />
           <Route path="/dealer" component={OrderProductsDealer} />
           <Route path="/manufacturer" component={OrderProductsManufacturer} />
+          <PrivateRoute path="/change/password" component={ChangePassword} />
           <PrivateRoute path="/profile" component={UserProfile} />
           <PrivateRoute path="/message" component={Message} />
           <PrivateRoute path="/conversation/:id" component={Conversation} />

@@ -38,8 +38,8 @@ const CreateVideoWindow = () => {
 
     formData.append("file", productVideo);
 
-    formData.append("upload_preset", "message_media");
-    formData.append("cloud_name", "dilnawh17");  
+    formData.append("upload_preset", "amar_test_upload");
+    formData.append("cloud_name", "ddvnxazw7");
 
     try {
       const config = {

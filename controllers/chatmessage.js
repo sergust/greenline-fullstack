@@ -4,7 +4,7 @@ const { isAuthorized } = require("../middleware/auth");
 exports.saveChatMessage = async (req, res) => {
   const newChatMessage = new ChatMessage(req.body);
   try {
-    if (!isAuthorized(req.user.id, req.body?.senderId)) {
+    if (!isAuthorized(req.user.id, req.body.senderId)) {
       throw new Error("Message cannot be saved");
     }
     const savedChatMessage = await newChatMessage.save();

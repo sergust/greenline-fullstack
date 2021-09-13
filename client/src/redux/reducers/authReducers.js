@@ -1,5 +1,11 @@
-import { AUTH_SUCCESS, AUTH_LOGOUT, USER_LOADED } from "../actions/action.types";
-
+import {
+  AUTH_SUCCESS,
+  AUTH_LOGOUT,
+  USER_LOADED,
+  PASSWORD_CHANGE_REQUEST,
+  PASSWORD_CHANGE_FAIL,
+  PASSWORD_CHANGE_SUCCESS,
+} from "../actions/action.types";
 
 const authReducer = (state = {}, action) => {
   switch (action.type) {
@@ -11,6 +17,21 @@ const authReducer = (state = {}, action) => {
       return {
         ...state,
         currentUserDetail: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const changePasswordReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PASSWORD_CHANGE_REQUEST:
+      return { loading: true };
+    case PASSWORD_CHANGE_SUCCESS:
+      return { success: true};
+    case PASSWORD_CHANGE_FAIL:
+      return {
+        errorMsg: "Unable to change password",
       };
     default:
       return state;

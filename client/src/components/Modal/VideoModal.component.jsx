@@ -1,11 +1,25 @@
 import React, { useState } from "react";
 import ModalVideo from "react-modal-video";
+import { useSelector, useDispatch } from "react-redux";
 import { Card, Button } from "react-bootstrap";
-import { RiVideoLine } from "react-icons/ri";
+import { RiVideoLine, RiDeleteBin6Line } from "react-icons/ri";
+import { deleteVideo } from "../../redux/actions/videoAction";
 import "./Modal.styles.scss";
 
-function VideoModal({ description, thumbnail, src }) {
+function VideoModal({ description, thumbnail, src, videoId }) {
+  const {
+    userInfo: { role, token },
+  } = useSelector((state) => state.auth);
   const [isOpen, setOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const handleDeleteVideo = (id) => {
+    const isSure = window.confirm("Are you sure you want to delete?");
+    if(!isSure) return;
+
+    dispatch(deleteVideo(id, token));
+  }
 
   return (
     <div style={{ marginBottom: 50 }}>
@@ -38,6 +52,13 @@ function VideoModal({ description, thumbnail, src }) {
           </span>
           <span style={{ fontSize: 12 }}>video</span>
         </div>
+        {role === "superAdmin" && (
+          <div className="v-delete-icon">
+          <span onClick={() => handleDeleteVideo(videoId)}>
+            <RiDeleteBin6Line size={20} color="#f50057" />
+          </span>
+        </div>
+        )}
         <div
           className="overlay"
           style={{ position: "absolute", top: "290px", left: "160px" }}

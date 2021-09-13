@@ -21,6 +21,10 @@ const links = [
     text: "Information Directory",
     link: "/products",
   },
+  {
+    text: "Change Password",
+    link: "/change/password"
+  }
 ];
 
 const Menu = ({ location }) => {

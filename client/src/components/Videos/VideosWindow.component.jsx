@@ -1,26 +1,29 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import VideoModal from "../Modal/VideoModal.component";
 import { Container, Row, Col, Alert, Button } from "react-bootstrap";
 import { FaPlusCircle } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { listVideos } from "../../redux/actions/videoAction";
-import "./VideosWindow.styles.scss";
 import Loader from "../Loading/Loader.component";
+import "./VideosWindow.styles.scss";
 
 function VideosWindow({ subscriber }) {
-  const { userInfo: {role, token}} = useSelector(state => state.auth);
-  const {loading, videos} = useSelector(state => state.videoList);
+  const {
+    userInfo: { role, token },
+  } = useSelector((state) => state.auth);
+  const { loading, videos } = useSelector((state) => state.videoList);
+  const { success: deleteSuccess} = useSelector(state => state.videoDelete);
   const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(listVideos(token));
-  }, [dispatch, token]);
+  }, [dispatch, token, deleteSuccess]);
 
   const handleAddVideo = () => {
     return history.push("/admin/video/add");
-  }
+  };
 
   return (
     <>
@@ -36,31 +39,38 @@ function VideosWindow({ subscriber }) {
           </Alert>
         </Container>
       ) : (
-        <div style={{ overflow: "hidden", minHeight: "100vh" }}>
+        <Container style={{ minHeight: "100vh" }}>
           {role === "superAdmin" && (
-            <Row className="py-4" style={{paddingRight: "150px"}}>
-            <Col xs={12} className="d-flex justify-content-end">
-              <Button onClick={handleAddVideo}>
-                <span>
-                  <FaPlusCircle size={24} />
-                </span>
-              </Button>
-            </Col>
-          </Row>
+            <Row className="py-4" style={{ paddingRight: "40px" }}>
+              <Col xs={12} className="d-flex justify-content-end">
+                <Button onClick={handleAddVideo}>
+                  <span>
+                    <FaPlusCircle size={24} />
+                  </span>
+                </Button>
+              </Col>
+            </Row>
           )}
-          <Row style={{ margin: 100 }} className={role === "superAdmin" ? "video-container mt-3": "video-container"}>
-            {!loading && videos?.map(video => (
-              <Col lg={4} xs={12} md={6} key={video._id}>
-              <VideoModal
-                description={video.title}
-                thumbnail={video.thumbnail}
-                src={video?.videoSrc.link}
-              />
-            </Col>
-            ))}
-            {loading && <Loader padding="100px"/>}
+          <Row
+            style={{ margin: "100px auto" }}
+            className={
+              role === "superAdmin" ? "video-container mt-3" : "video-container"
+            }
+          >
+            {!loading &&
+              videos?.map((video) => (
+                <Col key={video._id} lg={4} md={6} xs={12}>
+                  <VideoModal
+                    description={video.title}
+                    thumbnail={video.thumbnail}
+                    src={video?.videoSrc.link}
+                    videoId={video._id}
+                  />
+                </Col>
+              ))}
+            {loading && <Loader padding="100px" />}
           </Row>
-        </div>
+        </Container>
       )}
     </>
   );
