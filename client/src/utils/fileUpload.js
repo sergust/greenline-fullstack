@@ -22,8 +22,8 @@ export const fileUpload = async (additionalDocs) => {
 
     formData.append("file", item);
 
-    formData.append("upload_preset", "amar_test_upload");
-    formData.append("cloud_name", "ddvnxazw7");
+    formData.append("upload_preset", "message_media");
+   formData.append("cloud_name", "dilnawh17");
 
     const res = await fetch(process.env.REACT_APP_CLOUDINARY_URL, {
       method: "POST",

@@ -37,10 +37,9 @@ const CreateVideoWindow = () => {
     const formData = new FormData();
 
     formData.append("file", productVideo);
-
-    formData.append("upload_preset", "amar_test_upload");
-    formData.append("cloud_name", "ddvnxazw7");
-
+    formData.append("upload_preset", "message_media");
+    formData.append("cloud_name", "dilnawh17");
+  
     try {
       const config = {
         onUploadProgress: (progressEvent) => {
