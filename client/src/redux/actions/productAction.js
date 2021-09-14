@@ -26,41 +26,43 @@ const getConfig = (userToken) => {
   return config;
 };
 
-export const listProducts = (token, categoryId="") => async (dispatch) => {
-  try {
-    dispatch({ type: PRODUCT_LIST_REQUEST });
+export const listProducts =
+  (token, categoryId = "") =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: PRODUCT_LIST_REQUEST });
 
-    let URL = `${API}/product/all`;
+      let URL = `${API}/product/all`;
 
-    if(categoryId) {
-      URL = `${API}/product/${categoryId}/all` 
+      if (categoryId) {
+        URL = `${API}/product/${categoryId}/all`;
+      }
+
+      const { data } = await axios.get(URL, getConfig(token));
+
+      dispatch({
+        type: PRODUCT_LIST_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: PRODUCT_LIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
     }
-
-    const { data } = await axios.get(
-      URL,
-      getConfig(token)
-    );
-
-    dispatch({
-      type: PRODUCT_LIST_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: PRODUCT_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+  };
 
 export const listProductDetails = (id, token) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
-    const { data } = await axios.get(`${API}/product/detail/${id}`, getConfig(token));
+    const { data } = await axios.get(
+      `${API}/product/detail/${id}`,
+      getConfig(token)
+    );
 
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,

@@ -7,6 +7,7 @@ import homePosts from "./reducers/postReducers";
 import profile from "./reducers/profileReducers";
 import message from "./reducers/messageReducer";
 import socket from "./reducers/socketReducer";
+import order from "./reducers/orderReducer";
 import {
   productListReducer,
   productDetailsReducer,
@@ -32,6 +33,7 @@ export default combineReducers({
   profile,
   socket,
   message,
+  order,
   productList: productListReducer,
   productDetails: productDetailsReducer,
   productDelete: productDeleteReducer,

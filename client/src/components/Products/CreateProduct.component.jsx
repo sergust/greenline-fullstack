@@ -9,7 +9,7 @@ import fileUpload from "../../utils/fileUpload";
 import { createProduct } from "../../redux/actions/productAction";
 import { toast } from "react-toastify";
 import customStyles from "./SelectStyles";
-import './Products.styles.scss'
+import "./Products.styles.scss";
 
 function CreateProduct() {
   const [name, setName] = useState("");
@@ -29,7 +29,9 @@ function CreateProduct() {
   const {
     userInfo: { token },
   } = useSelector((state) => state.auth);
-  const { categories: productCategory } = useSelector((state) => state.categoryList);
+  const { categories: productCategory } = useSelector(
+    (state) => state.categoryList
+  );
   const { success, loading, error } = useSelector(
     (state) => state.productCreate
   );
@@ -39,14 +41,14 @@ function CreateProduct() {
   }, [dispatch, token]);
 
   useEffect(() => {
-    if(productCategory.length !== 0) {
+    if (productCategory.length !== 0) {
       const newOptions = [];
       productCategory.forEach((cate) => {
         newOptions.push({ value: cate._id, label: cate.name });
       });
       setOptions(newOptions);
     }
-  }, [productCategory])
+  }, [productCategory]);
 
   const handleImage = async (proImage) => {
     setIsUploading(true);
@@ -65,7 +67,7 @@ function CreateProduct() {
   const handleAddProduct = (e) => {
     e.preventDefault();
 
-    if (!name || !category || !image) {
+    if (!name || !category) {
       return window.alert("Please fill every field");
     }
 
@@ -257,7 +259,7 @@ function CreateProduct() {
             fontSize: 18,
           }}
           onClick={handleAddProduct}
-          disabled={isUploading ? "true" : null}
+          disabled={isUploading ? true : null}
         >
           {isUploading ? "Uploading..." : "Add"}
         </Button>
