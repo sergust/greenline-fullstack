@@ -10,8 +10,8 @@ import {
 import { CgEditBlackPoint } from "react-icons/cg";
 import { IoLocationOutline } from "react-icons/io5";
 import { BiPhoneCall } from "react-icons/bi";
-import { MdEdit } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import moment from "moment";
 import EditModal from "../Modal/EditModal.component";
 import { loadUser } from "../../redux/actions/authAction";
@@ -25,10 +25,17 @@ function Profile() {
   const [profileDetail] = users;
   const [isVisible, setIsVisible] = useState(false);
   const dispatch = useDispatch();
+  
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(loadUser());
   }, [dispatch]);
+
+
+  const handleChangePass = () => {
+    return history.push("/change/password");
+  }
 
   return (
     <Container>
@@ -135,17 +142,19 @@ function Profile() {
           </Col>
         </Row>
         <Row>
-          <Button
-            variant="primary"
-            className="profile-edit-btn"
-            onClick={() => setIsVisible(true)}
-          >
-            <span className="mr-2">
-              <MdEdit />
-            </span>
-            Edit
-          </Button>
-          <EditModal show={isVisible} hide={() => setIsVisible(false)} />
+          <Col sm={3}>
+            <Button
+              variant="primary"
+              className="profile-edit-btn"
+              onClick={() => setIsVisible(true)}
+            >
+              Edit
+            </Button>
+            <EditModal show={isVisible} hide={() => setIsVisible(false)} />
+          </Col>
+          <Col sm={9}>
+            <Button variant="primary" onClick={handleChangePass}>Change password</Button>
+          </Col>
         </Row>
       </Col>
     </Container>

@@ -6,7 +6,7 @@ import Footer from "../../components/Footer/Footer.component";
 
 const ChangePassword = () => {
   return (
-    <Container fluid="true">
+    <Container fluid>
       <Header />
       <ChangePasswordWindow />
       <Row className="footer">
