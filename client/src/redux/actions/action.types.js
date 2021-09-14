@@ -1,6 +1,6 @@
 //GLOBAL ACTIONS
-export const REQUEST = 'REQUEST';
-export const FAIL = 'FAIL'
+export const REQUEST = "REQUEST";
+export const FAIL = "FAIL";
 
 //AUTH
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
@@ -10,10 +10,10 @@ export const PASSWORD_CHANGE_SUCCESS = 'PASSWORD_CHANGE_SUCCESS'
 export const PASSWORD_CHANGE_FAIL = 'PASSWORD_CHANGE_FAIL'
 
 //load user
-export const USER_LOADED = 'USER_LOADED';
+export const USER_LOADED = "USER_LOADED";
 
 //socket
-export const SOCKET = 'SOCKET';
+export const SOCKET = "SOCKET";
 
 
 //product

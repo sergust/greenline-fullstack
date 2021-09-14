@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./LoginWindow.styles.scss";
-import {login} from "../../redux/actions/authAction";
+import { login } from "../../redux/actions/authAction";
 
 const LoginWindow = () => {
   const dispatch = useDispatch();
@@ -24,7 +24,15 @@ const LoginWindow = () => {
   return (
     <Form>
       <Form.Group>
-        <Form.Label htmlFor="user-email" className="my-1 ms-2" style = {{display: 'flex', margin: '4px 0px 4px 8px', fontFamily: 'sans-serif'}}>
+        <Form.Label
+          htmlFor="user-email"
+          className="my-1 ms-2"
+          style={{
+            display: "flex",
+            margin: "4px 0px 4px 8px",
+            fontFamily: "sans-serif",
+          }}
+        >
           Email
         </Form.Label>
         <Form.Control
@@ -40,7 +48,15 @@ const LoginWindow = () => {
       </Form.Group>
 
       <Form.Group>
-        <Form.Label htmlFor="user-password" className="my-1 ms-2" style = {{display: 'flex', margin: '4px 0px 4px 8px', fontFamily: 'sans-serif'}}>
+        <Form.Label
+          htmlFor="user-password"
+          className="my-1 ms-2"
+          style={{
+            display: "flex",
+            margin: "4px 0px 4px 8px",
+            fontFamily: "sans-serif",
+          }}
+        >
           Password
         </Form.Label>
         <Form.Control
@@ -50,21 +66,21 @@ const LoginWindow = () => {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
-        <span class="password-toggler">
+        <span className="password-toggler">
           {isToggle ? (
             <FaEyeSlash size="20" onClick={handlePasswordToggle} />
           ) : (
             <FaEye size="20" onClick={handlePasswordToggle} />
           )}
         </span>
-        <span className="forget-password-text my-1">
-          Forgot your password?
-        </span>
+        <span className="forget-password-text my-1">Forgot your password?</span>
       </Form.Group>
 
       <Button onClick={handleLogin}>Sign In</Button>
       <Link to="/signup">
-        <p style = {{color: '#05a684', marginTop: 10, textAlign: 'center'}}>Don't have an account? Sign up!</p>
+        <p style={{ color: "#05a684", marginTop: 10, textAlign: "center" }}>
+          Don't have an account? Sign up!
+        </p>
       </Link>
     </Form>
   );
