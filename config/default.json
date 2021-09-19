@@ -1,4 +1,0 @@
-{
-  "mongoURI": "mongodb+srv://Cameron:greenline@cluster0.aho2u.mongodb.net/greenline?retryWrites=true&w=majority",
-  "jwtSecret": "jwtSecret"
-}
