@@ -11,6 +11,10 @@ export const PASSWORD_CHANGE_FAIL = 'PASSWORD_CHANGE_FAIL'
 
 //load user
 export const USER_LOADED = "USER_LOADED";
+export const AVATAR_CHANGE_REQUEST = "AVATAR_CHANGE_REQUEST";
+export const AVATAR_CHANGE_SUCCESS = "AVATAR_CHANGE_SUCCESS";
+export const AVATAR_CHANGE_FAIL = "AVATAR_CHANGE_FAIL";
+
 
 //socket
 export const SOCKET = "SOCKET";

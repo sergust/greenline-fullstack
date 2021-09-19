@@ -13,6 +13,7 @@ const {
   getMyClients,
   searchUser,
   changePassword,
+  changeAvatar
 } = require("../../controllers/users");
 
 // @route   GET api/users/
@@ -116,6 +117,8 @@ router.put("/change/password", isSignedIn, [
     min: 6,
   }),
 ], changePassword);
+
+router.put("/change/avatar", isSignedIn, changeAvatar);
 
 // @route   POST api/users/my/client
 // @desc    get the client details associated with the admin user

@@ -143,7 +143,25 @@ exports.changePassword = async (req, res) => {
     await user.save();
     res.status(200).json({ msg: "Password Changed Successfully!"});
   } catch (err) {
-    console.log(err)
     res.status(400).json({error: "Unable to change Password"});
   }
 };
+
+
+exports.changeAvatar = async (req, res) => {
+  try {
+    const { userId, avatarUrl } = req.body;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new Error("User Not Found");
+    }
+
+    user.avatar = avatarUrl;
+
+    await user.save();
+    res.status(200).json({ msg: "Profile Picture Changed Successfully!"});
+  } catch (err) {
+    res.status(400).json({error: "Unable to change Profile Picture"});
+  }
+}

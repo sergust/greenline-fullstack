@@ -4,7 +4,7 @@ import auth, {changePasswordReducer} from "./reducers/authReducers";
 import request from "./reducers/requestReducers";
 import fail from "./reducers/failReducers";
 import homePosts from "./reducers/postReducers";
-import profile from "./reducers/profileReducers";
+import profile, {changeAvatarReducer} from "./reducers/profileReducers";
 import message from "./reducers/messageReducer";
 import socket from "./reducers/socketReducer";
 import order from "./reducers/orderReducer";
@@ -45,4 +45,5 @@ export default combineReducers({
   videoList: videoListReducer,
   videoDelete: videoDeleteReducer,
   passwordChange: changePasswordReducer,
+  avatarChange: changeAvatarReducer,
 });

@@ -1,3 +1,8 @@
+import {
+  AVATAR_CHANGE_FAIL,
+  AVATAR_CHANGE_REQUEST,
+  AVATAR_CHANGE_SUCCESS,
+} from "../actions/action.types";
 import { PROFILE_TYPES } from "../actions/profileAction";
 
 const initialState = {
@@ -5,7 +10,7 @@ const initialState = {
   ids: [],
   users: [],
   posts: [],
-  members: []
+  members: [],
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -25,14 +30,14 @@ const profileReducer = (state = initialState, action) => {
     case PROFILE_TYPES.GET_MEMBERS:
       return {
         ...state,
-        members: action.payload
+        members: action.payload,
       };
 
-      case PROFILE_TYPES.ADD_MEMBERS:
-        return {
-          ...state,
-          members: [...state.members, action.payload.user]
-        };
+    case PROFILE_TYPES.ADD_MEMBERS:
+      return {
+        ...state,
+        members: [...state.members, action.payload.user],
+      };
 
     case PROFILE_TYPES.GET_USER:
       return {
@@ -43,8 +48,8 @@ const profileReducer = (state = initialState, action) => {
     case PROFILE_TYPES.REMOVE_MEMBERS: {
       return {
         ...state,
-        members: state.members.filter(m => m._id !== action.payload)
-      }
+        members: state.members.filter((m) => m._id !== action.payload),
+      };
     }
 
     case PROFILE_TYPES.GET_ID:
@@ -79,6 +84,26 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         posts: state.posts.filter((post) => post._id !== action.payload),
       };
+    default:
+      return state;
+  }
+};
+
+const initialProfileState = {
+  loading: false,
+  success: false,
+  error: false,
+  changed: null,
+};
+
+export const changeAvatarReducer = (state = initialProfileState, action) => {
+  switch (action.type) {
+    case AVATAR_CHANGE_REQUEST:
+      return { ...initialProfileState, loading: true };
+    case AVATAR_CHANGE_SUCCESS:
+      return { ...initialProfileState, success: true };
+    case AVATAR_CHANGE_FAIL:
+      return { ...initialProfileState, error: true };
     default:
       return state;
   }
