@@ -22,11 +22,7 @@ const links = [
     link: "/products",
   },
   {
-    text: "Change Password",
-    link: "/change/password"
-  },
-  {
-    text: "Reordeding",
+    text: "Reordering",
     link: "/dealer"
   },
   {

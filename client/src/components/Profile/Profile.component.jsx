@@ -94,7 +94,6 @@ function Profile() {
         </Row>
         <Row
           style={{
-            justifyContent: "right",
             textAlign: "center",
             marginTop: "-4px",
           }}

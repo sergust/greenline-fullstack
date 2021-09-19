@@ -53,7 +53,7 @@ function VideoModal({ description, thumbnail, src, videoId }) {
           <span style={{ fontSize: 12 }}>video</span>
         </div>
         {role === "superAdmin" && (
-          <div className="v-delete-icon">
+          <div className="mt-2 position-absolute">
           <span onClick={() => handleDeleteVideo(videoId)}>
             <RiDeleteBin6Line size={20} color="#f50057" />
           </span>

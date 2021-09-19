@@ -21,12 +21,10 @@ const ChangePasswordWindow = () => {
 
   const handleError = () => {
     toast("Unable to change password", { type: "error" });
-    return;
   };
 
   const handleSuccess = () => {
     toast("Password Changed Successfully", { type: "success" });
-    return;
   };
 
   const handleChangePassword = (e) => {
@@ -68,7 +66,7 @@ const ChangePasswordWindow = () => {
 
   return (
     <Fragment>
-      <Form style={{padding: "7%"}}>
+      <Form className="px-4 py-4">
         <Form.Group as={Row} className="mb-3" controlId="currentPassword">
           <Form.Label column sm="2">
             Current Password
