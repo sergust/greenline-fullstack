@@ -1,5 +1,14 @@
 import axios from "axios";
-import { REQUEST, FAIL, AUTH_SUCCESS, AUTH_LOGOUT, USER_LOADED} from "./action.types";
+import {
+  REQUEST,
+  FAIL,
+  AUTH_SUCCESS,
+  AUTH_LOGOUT,
+  USER_LOADED,
+  PASSWORD_CHANGE_REQUEST,
+  PASSWORD_CHANGE_SUCCESS,
+  PASSWORD_CHANGE_FAIL,
+} from "./action.types";
 import { API } from "../../backend";
 
 export const login = (email, password) => {
@@ -28,12 +37,12 @@ export const login = (email, password) => {
     } finally {
       dispatch({
         type: REQUEST,
-        payload: { loading: false}
-      })
+        payload: { loading: false },
+      });
       dispatch({
         type: FAIL,
-        payload: ""
-      })
+        payload: "",
+      });
     }
   };
 };
@@ -62,15 +71,41 @@ export const register = (userData) => {
     } finally {
       dispatch({
         type: REQUEST,
-        payload: { loading: false}
-      })
+        payload: { loading: false },
+      });
       dispatch({
         type: FAIL,
-        payload: ""
-      })
+        payload: "",
+      });
     }
   };
 };
+
+//CHANGE USER PASSWORD
+export const changePassword = (token, userData) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: PASSWORD_CHANGE_REQUEST, payload: { loading: true } });
+
+      var config = {
+        headers: {
+          "X-Auth-Token": `${token}`,
+        },
+      };
+
+      const { data } = await axios.put(`${API}/users/change/password`, userData, config);
+
+      dispatch({ type: PASSWORD_CHANGE_SUCCESS, payload: data });
+    } catch (err) {
+      dispatch({
+        type: PASSWORD_CHANGE_FAIL,
+        payload:
+          err.response && err.response.data.errors[0].msg
+            ? err.response.data.errors[0].msg
+            : err.message,
+      }) 
+}}}
+
 
 //register new user
 export const loadUser = () => {
@@ -80,7 +115,7 @@ export const loadUser = () => {
       const {
         userInfo: { token },
       } = auth;
-      
+
       var config = {
         headers: {
           "X-Auth-Token": `${token}`,
@@ -91,22 +126,22 @@ export const loadUser = () => {
 
       dispatch({
         type: USER_LOADED,
-        payload: data
+        payload: data,
       });
-
     } catch (err) {
       dispatch({
         type: FAIL,
-        payload: err.response?.data.msg ? err.response?.data.msg : err.message
+        payload: err.response?.data.msg ? err.response?.data.msg : err.message,
       });
     }
-}};
+  };
+};
 
 //logout user
 export const logout = () => {
   return (dispatch) => {
-    localStorage.removeItem('userInfo');
+    localStorage.removeItem("userInfo");
     dispatch({ type: AUTH_LOGOUT });
     window.location.href = "/login";
-  }
-}
+  };
+};

@@ -22,8 +22,8 @@ const links = [
     link: "/products",
   },
   {
-    text: "Reordeding",
-    link: "/dealer",
+    text: "Reordering",
+    link: "/dealer"
   },
   {
     text: "Orders",

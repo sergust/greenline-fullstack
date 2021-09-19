@@ -6,7 +6,10 @@ import {
   VIDEO_CREATE_REQUEST,
   VIDEO_CREATE_SUCCESS,
   VIDEO_CREATE_FAIL,
-  VIDEO_CREATE_RESET
+  VIDEO_CREATE_RESET,
+  VIDEO_DELETE_REQUEST,
+  VIDEO_DELETE_FAIL,
+  VIDEO_DELETE_SUCCESS
 } from "./action.types";
 import { API } from "../../backend";
 
@@ -45,28 +48,28 @@ export const listVideos = (token) => async (dispatch) => {
   }
 };
 
-// export const deleteVideo = (id, token) => async (dispatch, getState) => {
-//   try {
-//     dispatch({
-//       type: CATEGORY_DELETE_REQUEST,
-//     });
+export const deleteVideo = (id, token) => async (dispatch) => {
+  try {
+    dispatch({
+      type: VIDEO_DELETE_REQUEST,
+    });
 
-//     await axios.delete(`${API}/category/delete/${id}`, getConfig(token));
+    await axios.delete(`${API}/video/delete/${id}`, getConfig(token));
 
-//     dispatch({
-//       type: CATEGORY_DELETE_SUCCESS,
-//     });
-//   } catch (error) {
-//     const message =
-//       error.response && error.response.data.message
-//         ? error.response.data.message
-//         : error.message;
-//     dispatch({
-//       type: CATEGORY_DELETE_FAIL,
-//       payload: message,
-//     });
-//   }
-// };
+    dispatch({
+      type: VIDEO_DELETE_SUCCESS,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: VIDEO_DELETE_FAIL,
+      payload: message,
+    });
+  }
+};
 
 export const createVideo = (token, newVideo) => async (dispatch) => {
   try {

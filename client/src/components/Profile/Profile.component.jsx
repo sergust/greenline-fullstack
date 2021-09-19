@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Image, Container, Button } from "react-bootstrap";
-import "./Profile.styles.scss";
+import { Row, Col, Image, Container, Button, Form } from "react-bootstrap";
 import {
   FaCalendarAlt,
   FaFacebook,
@@ -10,34 +9,90 @@ import {
 import { CgEditBlackPoint } from "react-icons/cg";
 import { IoLocationOutline } from "react-icons/io5";
 import { BiPhoneCall } from "react-icons/bi";
-import { MdEdit } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import moment from "moment";
 import EditModal from "../Modal/EditModal.component";
 import { loadUser } from "../../redux/actions/authAction";
+import { MdCameraAlt } from "react-icons/md";
+import { changeAvatar } from "../../redux/actions/profileAction";
+import { imageUpload } from "../../utils/imageUpload";
+import { toast } from "react-toastify";
+import "./Profile.styles.scss";
+
+let initial = true;
 
 function Profile() {
   const { users } = useSelector((state) => state.profile);
   const {
-    userInfo: { role },
+    userInfo: { role, token, userId },
     currentUserDetail,
   } = useSelector((state) => state.auth);
+  const {error, success} = useSelector(state => state.avatarChange);
   const [profileDetail] = users;
   const [isVisible, setIsVisible] = useState(false);
+  const [changed, setChanged] = useState(false);
   const dispatch = useDispatch();
+
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(loadUser());
-  }, [dispatch]);
+  }, [dispatch, success]);
+
+  const handleChangePass = () => {
+    return history.push("/change/password");
+  };
+
+  const handleChangeProfile = async (pf) => {
+    if(pf.length === 0) return;
+
+    const [response] = await imageUpload(pf);
+    const userData = {
+      userId,
+      avatarUrl: response.url
+    }
+
+    dispatch(changeAvatar(token, userData));
+
+    setTimeout(() => {
+      setChanged(true);
+    }, 1)
+  };
+
+  const handleSuccess = () => {
+    if(!changed || !initial) return;
+    toast('Profile changed success!', {
+      type: 'success'
+    })
+    initial = false;
+  }
+
+  const handleError = () => toast('Error changing profile...', {
+    type: 'error'
+  })
 
   return (
     <Container>
-      <Row style={{ alignItems: "center", justifyContent: "center" }}>
+      <Row
+        style={{ alignItems: "center", justifyContent: "center" }}
+        className="position-relative"
+      >
         <Image
           roundedCircle
-          src="https://i.pinimg.com/originals/ae/ec/c2/aeecc22a67dac7987a80ac0724658493.jpg"
+          src={currentUserDetail?.avatar}
           style={{ width: 200, height: 200 }}
         />
+        <Form.Group controlId="formFile" className="mb-3">
+          <Form.Label>
+            <span
+              className="profile-camera-icon position-absolute"
+            >
+              <MdCameraAlt size={24} />
+            </span>
+          </Form.Label>
+          <Form.Control type="file" style={{ display: "none" }} onChange={e => handleChangeProfile(e.target.files)}/>
+        </Form.Group>
       </Row>
       <Row
         style={{
@@ -135,19 +190,25 @@ function Profile() {
           </Col>
         </Row>
         <Row>
-          <Button
-            variant="primary"
-            className="profile-edit-btn"
-            onClick={() => setIsVisible(true)}
-          >
-            <span className="mr-2">
-              <MdEdit />
-            </span>
-            Edit
-          </Button>
-          <EditModal show={isVisible} hide={() => setIsVisible(false)} />
+          <Col sm={3}>
+            <Button
+              variant="primary"
+              className="profile-edit-btn"
+              onClick={() => setIsVisible(true)}
+            >
+              Edit
+            </Button>
+            <EditModal show={isVisible} hide={() => setIsVisible(false)} />
+          </Col>
+          <Col sm={9}>
+            <Button variant="primary" onClick={handleChangePass}>
+              Change password
+            </Button>
+          </Col>
         </Row>
       </Col>
+      {handleSuccess()}
+      {error && handleError()}
     </Container>
   );
 }

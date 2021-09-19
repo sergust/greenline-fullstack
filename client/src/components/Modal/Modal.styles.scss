@@ -33,6 +33,12 @@
   padding-right: 5px;
 }
 
+.v-delete-icon {
+  position: absolute;
+  right: 5px;
+  cursor: pointer;
+}
+
 .overlay {
   transition: 0.5s ease;
   opacity: 0;

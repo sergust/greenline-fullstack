@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FAIL, REQUEST } from "../actions/action.types";
+import { FAIL, REQUEST, AVATAR_CHANGE_REQUEST, AVATAR_CHANGE_SUCCESS, AVATAR_CHANGE_FAIL } from "../actions/action.types";
 import { API } from "../../backend";
 
 export const PROFILE_TYPES = {
@@ -323,3 +323,29 @@ export const deleteProfilePost = (postId) => async (dispatch, getState) => {
     });
   }
 };
+
+
+//CHANGE USER AVATAR
+export const changeAvatar = (token, userData) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: AVATAR_CHANGE_REQUEST, payload: { loading: true } });
+
+      var config = {
+        headers: {
+          "X-Auth-Token": `${token}`,
+        },
+      };
+
+      const { data } = await axios.put(`${API}/users/change/avatar`, userData, config);
+
+      dispatch({ type: AVATAR_CHANGE_SUCCESS, payload: data });
+    } catch (err) {
+      dispatch({
+        type: AVATAR_CHANGE_FAIL,
+        payload:
+          err.response && err.response.data.errors[0].msg
+            ? err.response.data.errors[0].msg
+            : err.message,
+      }) 
+}}}

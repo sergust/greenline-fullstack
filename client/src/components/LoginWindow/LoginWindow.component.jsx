@@ -73,7 +73,6 @@ const LoginWindow = () => {
             <FaEye size="20" onClick={handlePasswordToggle} />
           )}
         </span>
-        <span className="forget-password-text my-1">Forgot your password?</span>
       </Form.Group>
 
       <Button onClick={handleLogin}>Sign In</Button>
