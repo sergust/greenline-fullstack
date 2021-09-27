@@ -166,11 +166,6 @@ function OrderDealerWindow() {
                     field: "name",
                     render: (rowData) => <>{rowData.name || ""}</>,
                   },
-                  {
-                    title: "Product ID",
-                    field: "_id",
-                    render: (rowData) => <>{rowData._id || ""}</>,
-                  },
                 ]}
                 data={products || []}
                 title="Add products to the order"
